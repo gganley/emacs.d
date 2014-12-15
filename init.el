@@ -4,7 +4,7 @@
 (add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
 (require 'packages)
 (require 'solarized)
-(require 'config)
+(require 'global-config)
 (require 'haskell-config)
 ;;  Hooks
 ;;; Company

@@ -55,3 +55,4 @@
 (sp-pair "'" nil :actions :rem)
 (set-frame-font "Anonymous Pro-8" nil t)
 (setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
+(provide 'global-config)
