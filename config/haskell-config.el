@@ -1,4 +1,3 @@
-(load "~/.emacs.d/hindent")
 (require 'hindent)
 (require 'haskell-mode)
 (require 'haskell-process)

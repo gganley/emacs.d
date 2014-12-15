@@ -1,6 +1,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
 (require 'packages)
 (require 'solarized)
 (require 'config)
