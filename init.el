@@ -67,12 +67,35 @@
  '(custom-safe-themes
    (quote
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
- '(haskell-completing-read-function (quote ido-completing-read))
- '(haskell-font-lock-symbols (quote unicode))
- '(haskell-hoogle-command nil)
- '(haskell-mode-hook (quote (turn-on-haskell-doc turn-on-haskell-indentation)))
- '(haskell-stylish-on-save t)
- '(haskell-tags-on-save t)
+ '(haskell-process-type 'cabal-repl)
+ '(haskell-process-args-cabal-repl
+   '("--ghc-option=ferror-spans" "--with-ghc=ghci-ng"))
+ '(haskell-notify-p t)
+ '(haskell-stylish-on-save nil)
+ '(haskell-tags-on-save nil)
+ '(haskell-process-suggest-remove-import-lines t)
+ '(haskell-process-auto-import-loaded-modules t)
+ '(haskell-process-log t)
+ '(haskell-process-reload-with-fbytecode nil)
+ '(haskell-process-use-presentation-mode t)
+ '(haskell-interactive-mode-include-file-name nil)
+ '(haskell-interactive-mode-eval-pretty nil)
+ '(shm-use-presentation-mode t)
+ '(shm-auto-insert-skeletons t)
+ '(haskell-process-suggest-haskell-docs-imports t)
+ '(hindent-style "chris-done")
+ '(haskell-interactive-mode-eval-mode 'haskell-mode)
+ '(haskell-process-path-ghci "ghci-ng")
+ '(haskell-process-args-ghci '("-ferror-spans"))
+ '(haskell-process-args-cabal-repl
+   '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
+ '(haskell-process-generate-tags nil)
+ '(haskell-complete-module-preferred
+   '("Data.ByteString"
+     "Data.ByteString.Lazy"
+     "Data.List"
+     "Data.Maybe"
+     "Data.Monoid"))
  '(inhibit-default-init t)
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t))
@@ -84,9 +107,55 @@
  )
 (require 'smartparens)
 
+(smex-initialize)
 
-(autoload 'smex "smex")
-(global-set-key (kbd "M-x") 'smex)
+;; Haskell
+(load "~/.emacs.d/hindent")
+(require 'hindent)
+(require 'haskell-mode)
+(require 'haskell-process)
+(require 'haskell-interactive-mode)
+(require 'haskell-font-lock)
+
+
+(defun haskell-process-all-types ()
+  (interactive)
+  (let ((session (haskell-session)))
+    (switch-to-buffer (get-buffer-create (format "*%s:all-types*"
+						 (haskell-session-name (haskell-session)))))
+    (setq haskell-session session)
+    (cd (haskell-session-current-dir session))
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (let ((haskell-process-log nil))
+	(insert (haskell-process-queue-sync-request (haskell-process) ":all-types")))
+      (unless (eq major-mode 'completion-mode)
+	(completion-mode)
+	(setq compilation-error-regex-alist
+	      haskell-compilation-error-regexp-alist)))))
+(defun haskell-interactive-toggle-print-mode ()
+  (interactive)
+  (setq haskell-interactive-mode-eval-mode
+	(intern
+	 (ido-completing-read "Eval result mode: "
+			      '("fundamental-mode"
+				"haskell-mode"
+				"espresso-mode"
+				"ghc-core-mode"
+				"org-mode")))))
+(defun haskell-insert-doc ()
+  (interactive)
+  (insert "-- |"))
+(defun haskell-move-right ()
+  (interactive)
+  (haskell-move-nested 1))
+(defun haskell-move-left ()
+  (interactive)
+  (haskell-move-nested -1))
+(defun haskell-insert-undefined ()
+  (interactive)
+  (if (and (boundp 'structured-haskell-mode)
+	   structured-haskell-mode)))
 
 (blink-cursor-mode -1)
 (line-number-mode t)
@@ -111,11 +180,5 @@
 (setq tab-always-indent 'complete)
 (add-to-list 'completion-styles 'initials t)
 
-(add-to-list 'completion-ignored-extensions ".hi")
-(add-hook 'interactive-haskell-mode-hook 'ac-haskell-process-setup)
-(add-hook 'haskell-interactive-mode-hook 'ac-haskell-process-setup)
-(after-load 'haskell-mode
-	    (define-key haskell-mode-map (kbd "C-c C-d") 'ac-haskell-process-popup-doc))
-(after-load 'auto-complete
-	    (add-to-list 'ac-modes 'haskell-interactive-mode)
-	    (add-hook 'haskell-interactive-mode-hook 'set-auto-complete-as-completion-at-point-function))
+(set-frame-font "Anonymous Pro-8" nil t)
+(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
