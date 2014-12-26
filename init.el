@@ -12,8 +12,6 @@
 
 ;;; Haskell
 
-(add-hook 'haskell-mode-hook 'structured-haskell-mode)
-
 ;;  Key Bindings
 ;;; Company
 (global-set-key (kbd "C-c SPC") 'company-complete)

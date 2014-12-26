@@ -5,3 +5,5 @@ auto-save-list/*
 *~
 .cabal-sandbox/*
 cabal.sandbox.config
+#*#
+elisp/*

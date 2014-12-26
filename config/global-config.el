@@ -37,6 +37,10 @@
  '(inhibit-startup-screen t)
  '(shm-auto-insert-skeletons t)
  '(shm-use-presentation-mode t))
+(custom-set-variables
+ '(inhibit-startup-screen tA)
+ '(ingibit-default-init t))
+
 (require 'smartparens)
 (smex-initialize)
 (provide 'config)
