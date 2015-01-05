@@ -9,13 +9,15 @@
     company
     haskell-mode
     rainbow-delimiters
-    smartparens
+    paredit
     smex
     flycheck
     magit
     solarized-theme
     company
-    company-ghc))
+    company-ghc
+    shm
+    csharp-mode))
 (defun packages-installed-p ()
   (every #'package-installed-p gcg/packages))
 (defun require-package (package)
