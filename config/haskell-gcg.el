@@ -24,9 +24,9 @@
  '(haskell-process-suggest-haskell-docs-imports t)
  '(hindent-style "chris-done")
  '(haskell-interactive-mode-eval-as-mode 'haskell-mode)
- '(haskell-process-path-ghci "/home/gcganley/.cabal/bin/ghci-ng")
+ '(haskell-process-path-ghci "ghci")
  '(haskell-process-args-ghci '("-ferror-spans"))
- '(haskell-process-args-cabal-repl '("--ghc-option=ferror-spans" "--with-ghc=ghci-ng"))
+ '(haskell-process-args-cabal-repl '("--ghc-option=ferror-spans" "--with-ghc=ghci"))
  '(haskell-process-generate-tags nil))
 
 (defun haskell-insert-doc ()

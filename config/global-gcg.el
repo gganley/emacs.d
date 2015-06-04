@@ -48,6 +48,6 @@
 
 (global-set-key (kbd "C-x C-S") 'write-file)
 
-; (set-frame-font "Anonymous Pro-12" nil t)
+(set-frame-font "Droid Sans Mono-8" nil t)
 (setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
 (provide 'global-gcg)
