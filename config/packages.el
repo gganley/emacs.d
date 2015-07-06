@@ -6,18 +6,15 @@
 (package-initialize)
 (defvar gcg/packages
   '(cl-lib
-    company
     haskell-mode
     rainbow-delimiters
     paredit
-    smex
     flycheck
     magit
     solarized-theme
-    company
-    company-ghc
-    shm
-    csharp-mode))
+    smex
+    linum-relative
+    direx))
 (defun packages-installed-p ()
   (every #'package-installed-p gcg/packages))
 (defun require-package (package)
