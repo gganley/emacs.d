@@ -11,9 +11,10 @@
     paredit
     flycheck
     magit
+    projectile
     solarized-theme
     smex
-    linum-relative
+    flymake-haskell-multi
     direx))
 (defun packages-installed-p ()
   (every #'package-installed-p gcg/packages))

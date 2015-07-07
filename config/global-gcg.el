@@ -22,4 +22,6 @@
 (smex-initialize)
 
 (load-theme 'zenburn t)
+(show-paren-mode t)
+(add-hook 'emacs-list-mode-hook 'projectile-mode)
 (provide 'global-gcg)

@@ -55,6 +55,7 @@
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
 
 (define-key haskell-mode-map [f5] 'haskell-process-load-or-reload)
 (define-key haskell-mode-map [f8] 'haskell-navigate-imports)
