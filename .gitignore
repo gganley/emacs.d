@@ -8,4 +8,3 @@ cabal.sandbox.config
 #*#
 elisp/*
 /games/
-/themes/

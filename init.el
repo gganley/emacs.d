@@ -8,7 +8,7 @@
 (require 'solarized)
 (require 'haskell-gcg)
 (require 'global-gcg)
-
+(require 'js-gcg)
 
 (setenv "PATH" (concat "/home/gcganley/.cabal/bin:" (getenv "PATH")))
 (global-set-key (kbd "C-c SPC") 'company-complete)
