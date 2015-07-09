@@ -2,21 +2,28 @@
 (require 'cl-lib)
 (eval-when-compile (require 'cl))
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
+	     '("melpa" . "http://melpa.org/packages/")
+	     '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 (defvar gcg/packages
   '(cl-lib
     js2-mode
     haskell-mode
     rainbow-delimiters
-    paredit
+    smartparens
     flycheck
     magit
     projectile
-    solarized-theme
     smex
     flymake-haskell-multi
-    direx))
+    direx
+    cider
+    clojure-mode
+    auto-complete
+    ac-cider
+    ac-nrepl
+    popup
+    rainbow-mode))
 (defun packages-installed-p ()
   (every #'package-installed-p gcg/packages))
 (defun require-package (package)

@@ -1,5 +1,7 @@
 (setq inhibit-default-init t)
 (setq inhibit-startup-screen t)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 
 (blink-cursor-mode -1)
 (line-number-mode t)
@@ -8,13 +10,12 @@
 (fringe-mode 4)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(autoload 'enable-paredit-mode "paredit" "asdf" t)
-(add-hook 'prog-mode-hook 'enable-paredit-mode)
+(add-hook 'prog-mode-hook #'smartparens-strict-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-(global-set-key (kbd "C-x C-S") 'write-file)
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
+(global-set-key (kbd "C-x C-s") 'save-buffer)
 
 (set-frame-font "Anonymous Pro-8" nil t)
 (setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
@@ -23,6 +24,10 @@
 
 (load-theme 'zenburn t)
 (show-paren-mode t)
-(add-hook 'emacs-list-mode-hook 'projectile-mode)
+
+(require 'auto-complete-config)
+(setq ac-delay 0.0)
+(setq ac-quick-help-delay 0.5)
+(ac-config-default)
 
 (provide 'global-gcg)
