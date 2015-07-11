@@ -1,5 +1,4 @@
 (require 'haskell-mode)
-(require 'hindent)
 (require 'haskell-process)
 (require 'haskell-simple-indent)
 (require 'haskell-font-lock)
@@ -17,7 +16,6 @@
 (define-key haskell-mode-map [f12] 'haskell-process-cabal-build-and-restart)
 (define-key haskell-mode-map (kbd "C-;") 'haskell-interactive-bring)
 (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
-(define-key haskell-mode-map (kbd "C-c i") 'hindent/reformat-decl)
 (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
 (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
 (define-key haskell-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)

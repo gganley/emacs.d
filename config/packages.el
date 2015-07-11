@@ -7,6 +7,7 @@
 (package-initialize)
 (defvar gcg/packages
   '(cl-lib
+    names
     js2-mode
     haskell-mode
     rainbow-delimiters

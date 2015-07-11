@@ -1,3 +1,5 @@
+(require 'camcorder)
+
 (setq inhibit-default-init t)
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
@@ -18,7 +20,7 @@
 (global-set-key (kbd "C-x C-s") 'save-buffer)
 
 (set-frame-font "Anonymous Pro-8" nil t)
-(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
+(setq erc-hide-list '("JOIN" "QUIT" "NICK"))
 
 (smex-initialize)
 
