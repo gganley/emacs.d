@@ -69,4 +69,4 @@
      (unless (package-installed-p package)
        (auto-install extension package mode))))
  auto-install-alist)
-(provide 'gganley/packages)
+(provide 'gganley-packages)
