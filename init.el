@@ -1,6 +1,6 @@
 ; sadface.el
 
-(add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "gcg" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "elisp" user-emacs-directory))
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
