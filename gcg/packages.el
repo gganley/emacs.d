@@ -64,4 +64,4 @@
      (unless (package-installed-p package)
        (auto-install extension package mode))))
  auto-install-alist)
-(provide 'packages)
+(provide 'gcg/packages)

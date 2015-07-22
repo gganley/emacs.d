@@ -34,4 +34,4 @@
 (ac-config-default)
 
 (powerline-default-theme)
-(provide 'global-gcg)
+(provide 'gcg/config)

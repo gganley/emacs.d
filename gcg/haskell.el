@@ -31,4 +31,4 @@
 (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
 (define-key haskell-cabal-mode-map (kbd "C-c C-k") 'haskell-interactive-mode-clear)
 
-(provide 'haskell-gcg)
+(provide 'gcg/haskell)
