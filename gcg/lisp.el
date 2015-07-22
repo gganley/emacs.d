@@ -19,4 +19,4 @@
 
 (sp-pair "'" nil :actions :rem)
 
-(provide 'gcg/lisp)
+(provide 'gganley/lisp)
