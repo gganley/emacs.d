@@ -1,19 +1,21 @@
 (require 'package)
 (require 'cl-lib)
 (eval-when-compile (require 'cl))
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/")
-	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 (defvar gcg/packages
   '(cl-lib
     names
+    powerline
     js2-mode
     haskell-mode
     rainbow-delimiters
     smartparens
     flycheck
     magit
+    exec-path-from-shell
     projectile
     smex
     flymake-haskell-multi
