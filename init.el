@@ -6,7 +6,6 @@
 
 ; bring in all of my .el files
 (require 'packages)
-(require 'solarized)
 (require 'haskell-gcg)
 (require 'global-gcg)
 (require 'js-gcg)
