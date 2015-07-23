@@ -19,7 +19,8 @@
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
 (global-set-key (kbd "C-x C-s") 'save-buffer)
 
-(set-frame-font "Anonymous Pro-8" nil t)
+(set-default-font "Anonymous Pro-8")
+
 (setq erc-hide-list '("JOIN" "QUIT" "NICK"))
 
 (smex-initialize)
@@ -32,4 +33,5 @@
 (setq ac-quick-help-delay 0.5)
 (ac-config-default)
 
-(provide 'global-gcg)
+(powerline-default-theme)
+(provide 'gganley/config)

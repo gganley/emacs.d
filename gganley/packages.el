@@ -2,18 +2,25 @@
 (require 'cl-lib)
 (eval-when-compile (require 'cl))
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+<<<<<<< HEAD:config/packages.el
 			 ("marmalade" . "https://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.org/packages/")))
+=======
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.org/packages/")))
+>>>>>>> b3ad385813c171a8d85c87920814ccc4237b0736:gganley/packages.el
 (package-initialize)
 (defvar gcg/packages
   '(cl-lib
     names
+    powerline
     js2-mode
     haskell-mode
     rainbow-delimiters
     smartparens
     flycheck
     magit
+    exec-path-from-shell
     projectile
     smex
     flymake-haskell-multi
@@ -25,6 +32,11 @@
     ac-nrepl
     popup
     rainbow-mode))
+
+
+;;; This is all C-w C-y from Prelude. I understand most of it but the rest is just
+;;; Witch craft to me 
+
 (defun packages-installed-p ()
   (every #'package-installed-p gcg/packages))
 (defun require-package (package)
@@ -62,4 +74,4 @@
      (unless (package-installed-p package)
        (auto-install extension package mode))))
  auto-install-alist)
-(provide 'packages)
+(provide 'gganley/packages)

@@ -7,5 +7,5 @@
 	  (lambda () (flycheck-mode t)))
 (add-hook 'js-mode-hook 'js2-minor-mode)
 
-(provide 'js-gcg)
+(provide 'gganley/js)
 
