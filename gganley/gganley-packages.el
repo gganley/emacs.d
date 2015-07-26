@@ -2,13 +2,9 @@
 (require 'cl-lib)
 (eval-when-compile (require 'cl))
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-<<<<<<< HEAD:config/packages.el
-			 ("marmalade" . "https://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.org/packages/")))
-=======
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
->>>>>>> b3ad385813c171a8d85c87920814ccc4237b0736:gganley/packages.el
+
 (package-initialize)
 (defvar gcg/packages
   '(cl-lib
@@ -74,4 +70,4 @@
      (unless (package-installed-p package)
        (auto-install extension package mode))))
  auto-install-alist)
-(provide 'gganley/packages)
+(provide 'gganley-packages)

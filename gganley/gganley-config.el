@@ -34,4 +34,4 @@
 (ac-config-default)
 
 (powerline-default-theme)
-(provide 'gganley/config)
+(provide 'gganley-config)
