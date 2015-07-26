@@ -8,3 +8,7 @@
 (add-hook 'js-mode-hook 'js2-minor-mode)
 
 (provide 'gganley-js)
+<<<<<<< HEAD:gganley/js.el
+=======
+
+>>>>>>> f5952e8bdfb285ec804f4d69abcde57f67be7a2a:gganley/gganley-js.el

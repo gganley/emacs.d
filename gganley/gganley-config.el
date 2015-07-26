@@ -19,6 +19,11 @@
 (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory)
 (global-set-key (kbd "C-x C-s") 'save-buffer)
 
+(global-set-key (kbd "C-c j") 'windmove-left)
+(global-set-key (kbd "C-c k") 'windmove-down)
+(global-set-key (kbd "C-c l") 'windmove-up)
+(global-set-key (kbd "C-c ;") 'windmove-right)
+
 (set-default-font "Anonymous Pro-8")
 
 (setq erc-hide-list '("JOIN" "QUIT" "NICK"))
@@ -34,4 +39,4 @@
 (ac-config-default)
 
 (powerline-default-theme)
-(provide 'gganley/config)
+(provide 'gganley-config)
