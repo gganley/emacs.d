@@ -1,5 +1,3 @@
-(require 'camcorder)
-
 (setq inhibit-default-init t)
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
@@ -24,7 +22,7 @@
 (global-set-key (kbd "C-c l") 'windmove-up)
 (global-set-key (kbd "C-c ;") 'windmove-right)
 
-(set-default-font "Anonymous Pro-8")
+(set-default-font "Source Code Pro-9")
 
 (setq erc-hide-list '("JOIN" "QUIT" "NICK"))
 
@@ -39,4 +37,11 @@
 (ac-config-default)
 
 (powerline-default-theme)
+
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
 (provide 'gganley-config)
