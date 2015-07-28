@@ -29,7 +29,6 @@
     popup
     rainbow-mode))
 
-
 ;;; This is all C-w C-y from Prelude. I understand most of it but the rest is just
 ;;; Witch craft to me 
 
