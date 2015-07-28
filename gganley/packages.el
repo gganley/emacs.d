@@ -20,7 +20,7 @@
     projectile
     smex
     flymake-haskell-multi
-    direx
+    dired+
     cider
     clojure-mode
     auto-complete
