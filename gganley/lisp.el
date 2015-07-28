@@ -18,5 +18,5 @@
 (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)
 
 (sp-pair "'" nil :actions :rem)
-
+(sp-pair "`" nil :actions :rem)
 (provide 'gganley-lisp)
