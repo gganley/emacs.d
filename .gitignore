@@ -9,3 +9,6 @@ cabal.sandbox.config
 /games/
 *~
 *.elc
+/org-init.html
+/org-init.pdf
+/org-init.tex
