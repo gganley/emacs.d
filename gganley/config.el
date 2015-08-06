@@ -1,8 +1,9 @@
+(require 'solarized)
 (setq inhibit-default-init t)
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
-
+(scroll-bar-mode -1)
 (blink-cursor-mode -1)
 (line-number-mode t)
 (column-number-mode t)
@@ -20,15 +21,12 @@
 
 (smex-initialize)
 
-(load-theme 'zenburn t)
 (show-paren-mode t)
 
 (require 'auto-complete-config)
 (setq ac-delay 0.0)
 (setq ac-quick-help-delay 0.5)
 (ac-config-default)
-
-(powerline-default-theme)
 
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
@@ -39,4 +37,6 @@
 
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 
+(display-time-mode t)
+(load-theme 'solarized-light)
 (provide 'gganley-config)
