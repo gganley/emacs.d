@@ -19,6 +19,7 @@
     exec-path-from-shell
     projectile
     smex
+    solarized-theme
     flymake-haskell-multi
     dired+
     cider
