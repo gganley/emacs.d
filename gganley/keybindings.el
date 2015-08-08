@@ -21,6 +21,9 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (define-key org-mode-map (kbd "C-c i") '(lambda () (interactive)(insert "#+BEGIN_SRC emacs-lisp\n#+END_SRC")))
 
+;; Magit
+(global-set-key (kbd "C-c g") 'magit-status)
+
 ;; Smart parens
 (global-set-key (kbd "C-)") 'sp-forward-slurp-sexp)
 (global-set-key (kbd "C-(") 'sp-backward-slurp-sexp)
