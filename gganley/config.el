@@ -34,9 +34,9 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)
-
+(setq org-directory "/home/gcganley/org")
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 
 (display-time-mode t)
-(load-theme 'solarized-light)
+(load-theme 'solarized-dark)
 (provide 'gganley-config)
