@@ -1,6 +1,3 @@
-
-(byte-recompile-directory (expand-file-name "~/.emacs.d") 0)
-
 (defconst user-init-dir
   (cond ((boundp 'user-emacs-directory)
          user-emacs-directory)
