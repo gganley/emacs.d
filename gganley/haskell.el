@@ -1,9 +1,5 @@
 (require 'haskell-mode)
-(require 'haskell-process)
-(require 'haskell-simple-indent)
-(require 'haskell-font-lock)
-(require 'haskell-debug)
-
+(require 'haskell-cabal)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)

@@ -1,4 +1,3 @@
-(require 'solarized)
 (setq inhibit-default-init t)
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
@@ -23,7 +22,6 @@
 
 (show-paren-mode t)
 
-(require 'auto-complete-config)
 (setq ac-delay 0.0)
 (setq ac-quick-help-delay 0.5)
 (ac-config-default)
