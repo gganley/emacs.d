@@ -36,5 +36,5 @@
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 
 (display-time-mode t)
-(load-theme 'solarized-dark)
+(load-theme 'solarized-dark t)
 (provide 'gganley-config)
