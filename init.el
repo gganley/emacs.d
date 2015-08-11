@@ -17,3 +17,4 @@
 (load-user-file "gganley/lisp.el")
 (load-user-file "gganley/haskell.el")
 (load-user-file "gganley/keybindings.el")
+(load-user-file "gganley/hooker.el")
