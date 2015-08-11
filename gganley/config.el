@@ -1,17 +1,23 @@
+;; Inhibits start screen, starts at scratch buffer
 (setq inhibit-default-init t)
 (setq inhibit-startup-screen t)
+
+;; disables a bunch of shitty UI
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (blink-cursor-mode -1)
+
+;; Enables modline features
 (line-number-mode t)
 (column-number-mode t)
 (size-indication-mode t)
+
+;; User experience better
 (fringe-mode 4)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(add-hook 'prog-mode-hook #'smartparens-strict-mode)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
 
 
 (set-default-font "Source Code Pro-9")
