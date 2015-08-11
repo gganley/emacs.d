@@ -44,5 +44,5 @@
 
 (display-time-mode t)
 
-(load-theme 'solarized-dark)
+(load-theme 'solarized-dark t)
 (provide 'gganley-config)
