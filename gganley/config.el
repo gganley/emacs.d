@@ -45,4 +45,6 @@
 (display-time-mode t)
 
 (load-theme 'solarized-dark t)
+
+(global-prettify-symbols-mode +1)
 (provide 'gganley-config)
