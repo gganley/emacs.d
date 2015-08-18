@@ -41,7 +41,8 @@
 
 (display-time-mode t)
 
-(load-theme 'solarized-dark t)
+(load-theme 'zenburn t)
+(powerline-default-theme)
 
 (global-prettify-symbols-mode +1)
 

@@ -19,7 +19,7 @@
     exec-path-from-shell
     projectile
     smex
-    solarized-theme
+    zenburn-theme
     flymake-haskell-multi
     dired+
     cider
