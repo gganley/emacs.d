@@ -13,3 +13,5 @@ cabal.sandbox.config
 /org-init.pdf
 /org-init.tex
 /bookmarks
+eshell/
+/gganley/#keybindings.el#

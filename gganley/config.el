@@ -39,7 +39,7 @@
       kept-old-versions 2
       version-control t)
 
-(setq org-directory "/home/gcganley/org")
+(setq org-directory "/home/gganley/org")
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 
 (display-time-mode t)
