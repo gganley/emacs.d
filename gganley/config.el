@@ -42,9 +42,9 @@
 (display-time-mode t)
 
 (load-theme 'zenburn t)
-(powerline-default-theme)
 
 (global-prettify-symbols-mode +1)
 
 (setenv "PATH" (concat (getenv "PATH") ":/home/gganley/bin"))
+
 (provide 'gganley-config)
