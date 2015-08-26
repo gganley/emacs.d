@@ -24,6 +24,7 @@
     dired+
     cider
     clojure-mode
+    jedi
     auto-complete
     ac-cider
     ac-nrepl
