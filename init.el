@@ -11,7 +11,6 @@
   (load-file (expand-file-name file user-init-dir)))
 
 (load-user-file "gganley/packages.el")
-
 (load-user-file "gganley/config.el")
 (load-user-file "gganley/js.el")
 (load-user-file "gganley/lisp.el")
