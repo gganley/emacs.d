@@ -1,6 +1,3 @@
-(require 'smartparens)
+(require 'smartparens-config)
 
-
-(sp-pair "'" nil :actions :rem)
-(sp-pair "`" nil :actions :rem)
 (provide 'gganley-lisp)
