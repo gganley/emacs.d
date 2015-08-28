@@ -24,8 +24,8 @@
     dired+
     cider
     clojure-mode
-    jedi
-    auto-complete
+    company-jedi
+    company
     ac-cider
     ac-nrepl
     popup

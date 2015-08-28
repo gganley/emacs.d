@@ -25,10 +25,6 @@
 
 (show-paren-mode t)
 
-(setq ac-delay 0.0)
-(setq ac-quick-help-delay 0.5)
-(ac-config-default)
-
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq backup-by-copying t)
 (setq delete-old-versions t

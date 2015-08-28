@@ -16,3 +16,4 @@ cabal.sandbox.config
 eshell/
 /gganley/#keybindings.el#
 /.python-environments/
+/tramp
