@@ -17,5 +17,5 @@ eshell/
 /gganley/#keybindings.el#
 /.python-environments/
 /tramp
-irony/
-irony/bin/irony-server
+irony/*
+
