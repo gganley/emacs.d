@@ -1,6 +1,7 @@
 (add-hook 'prog-mode-hook #'smartparens-strict-mode)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'smartparens-strict-mode)
+(add-hook 'prog-mode-hook 'electric-pair-mode)
 (add-hook 'cider-repl-mode-hook 'smartparens-strict-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
