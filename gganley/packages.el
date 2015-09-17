@@ -24,8 +24,9 @@
     dired+
     cider
     clojure-mode
-    company-jedi
     company
+    company-jedi
+    company-irony
     ac-cider
     ac-nrepl
     popup
