@@ -13,8 +13,10 @@
     js2-mode
     haskell-mode
     rainbow-delimiters
+    yasnippet
     smartparens
     flycheck
+    irony
     magit
     exec-path-from-shell
     projectile

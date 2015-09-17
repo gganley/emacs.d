@@ -18,3 +18,4 @@
 (load-user-file "gganley/keybindings.el")
 (load-user-file "gganley/hooker.el")
 (load-user-file "gganley/python.el")
+(load-user-file "gganley/c.el")

@@ -42,5 +42,7 @@
 (global-prettify-symbols-mode +1)
 
 (setenv "PATH" (concat (getenv "PATH") ":/home/gganley/bin"))
+
+
 (require 'smartparens-config)
 (provide 'gganley-config)
