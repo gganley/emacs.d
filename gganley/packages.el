@@ -8,6 +8,9 @@
 (package-initialize)
 (defvar gcg/packages
   '(cl-lib
+    shm
+    ghc
+    company-ghc
     names
     powerline
     js2-mode

@@ -3,12 +3,18 @@
 (add-hook 'prog-mode-hook 'smartparens-strict-mode)
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 (add-hook 'cider-repl-mode-hook 'smartparens-strict-mode)
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-(add-hook 'haskell-mode-hook 'haskell-auto-insert-module-template)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
 (add-hook 'js-mode-hook
 	  (lambda () (flycheck-mode t)))
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (add-hook 'after-init-hook 'global-company-mode)
+
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+
+(add-hook 'after-init-hook 'global-company-mode)
+(add-hook 'haskell-mode-hook 'company-mode)
+(add-to-list 'company-backends 'company-ghc)
+(custom-set-variables '(company-ghc-show-info t))
+(add-hook 'haskell-mode-hook 'structured-haskell-mode)
 (provide 'hooker)

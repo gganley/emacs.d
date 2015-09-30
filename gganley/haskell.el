@@ -1,4 +1,3 @@
-(require 'haskell-mode)
-(require 'haskell-cabal)
-
-(provide 'gganley-haskell)
+(require 'shm)
+(add-hook 'haskell-mode-hook 'structured-haskell-mode)
+(provide 'haskell)
