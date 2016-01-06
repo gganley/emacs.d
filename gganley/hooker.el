@@ -8,13 +8,6 @@
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (add-hook 'after-init-hook 'global-company-mode)
 
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-
 (add-hook 'after-init-hook 'global-company-mode)
-(add-hook 'haskell-mode-hook 'company-mode)
 (add-to-list 'company-backends 'company-ghc)
-(custom-set-variables '(company-ghc-show-info t))
-(add-hook 'haskell-mode-hook 'structured-haskell-mode)
 (provide 'hooker)

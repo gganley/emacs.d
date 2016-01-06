@@ -1,3 +1,4 @@
+(setq gc-cons-threshold 2000000)
 (defconst user-init-dir
   (cond ((boundp 'user-emacs-directory)
          user-emacs-directory)
@@ -11,6 +12,7 @@
   (load-file (expand-file-name file user-init-dir)))
 
 (load-user-file "gganley/packages.el")
+(require 'company)
 (load-user-file "gganley/config.el")
 (load-user-file "gganley/js.el")
 (load-user-file "gganley/lisp.el")

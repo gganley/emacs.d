@@ -7,34 +7,20 @@
 
 (package-initialize)
 (defvar gcg/packages
-  '(cl-lib
-    shm
-    ghc
-    company-ghc
-    names
-    powerline
-    js2-mode
-    haskell-mode
+  '(haskell-mode
+    auto-complete
     rainbow-delimiters
-    yasnippet
     smartparens
     flycheck
-    irony
     magit
-    exec-path-from-shell
-    projectile
     smex
     zenburn-theme
-    flymake-haskell-multi
-    dired+
     cider
     clojure-mode
     company
-    company-jedi
     company-irony
     ac-cider
     ac-nrepl
-    popup
     rainbow-mode))
 
 ;;; This is all C-w C-y from Prelude. I understand most of it but the rest is just

@@ -4,7 +4,7 @@
 ;; better dired
 (global-set-key (kbd "C-c d") 'direx:jump-to-directory)
 
-;; Something broke my C-x C-s
+;; ing broke my C-x C-s
 (global-set-key (kbd "C-x C-s") 'save-buffer)
 
 ;; Call me an i3 fanboy but this works great for me

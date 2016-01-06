@@ -17,7 +17,7 @@
 (fringe-mode 4)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(set-default-font "Source Code Pro-9")
+(set-default-font "Source Code Pro-10")
 
 (setq erc-hide-list '("JOIN" "QUIT" "NICK"))
 
@@ -41,8 +41,14 @@
 
 (global-prettify-symbols-mode +1)
 
-(setenv "PATH" (concat (getenv "PATH") ":/home/gganley/bin"))
+(add-to-list 'exec-path "/home/gganley/bin")
 
-
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-x C-s")
+			   '(lambda ()
+			      (interactive)
+			      (save-buffer)
+			      (org-latex-export-to-pdf)))))
 (require 'smartparens-config)
 (provide 'gganley-config)
