@@ -1,0 +1,5 @@
+style "menufont"
+{
+  font_name = "Source Code Pro 10"  # Pango font name
+}
+widget "*emacs-menuitem*" style "menufont"

@@ -52,15 +52,5 @@
 				   (package-install ',package))
 				 (,mode)))))
 
-(defvar auto-install-alist
-  '(("\\.hs\\'" haskell-mode haskell-mode)
-    ("\\.clj\\'" clojure-mode clojure-mode)))
-(mapc
- (lambda (entry)
-   (let ((extension (car entry))
-	 (package (cadr entry))
-	 (mode (cadr (cdr entry))))
-     (unless (package-installed-p package)
-       (auto-install extension package mode))))
- auto-install-alist)
+
 (provide 'gganley-packages)
