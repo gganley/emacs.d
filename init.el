@@ -13,6 +13,7 @@
 
 (load-user-file "gganley/packages.el")
 (require 'company)
+(exec-path-from-shell-initialize)
 (load-user-file "gganley/config.el")
 (load-user-file "gganley/js.el")
 (load-user-file "gganley/lisp.el")

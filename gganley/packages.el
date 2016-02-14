@@ -21,6 +21,7 @@
     company-irony
     ac-cider
     ac-nrepl
+    exec-path-from-shell
     rainbow-mode))
 
 ;;; This is all C-w C-y from Prelude. I understand most of it but the rest is just
