@@ -51,5 +51,7 @@
 			      (interactive)
 			      (save-buffer)
 			      (org-latex-export-to-pdf)))))
+(add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
+
 (require 'smartparens-config)
 (provide 'gganley-config)
