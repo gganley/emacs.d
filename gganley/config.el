@@ -18,6 +18,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (set-default-font "Source Code Pro-10")
+(setq default-frame-alist '((font . "Source Code Pro-10")))
 
 (setq erc-hide-list '("JOIN" "QUIT" "NICK"))
 
