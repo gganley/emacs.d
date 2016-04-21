@@ -3,9 +3,10 @@ elpa/*
 smex-items
 auto-save-list/*
 *~
+.cask/
 .cabal-sandbox/*
 cabal.sandbox.config
-#*#
+\#*\#
 /games/
 *~
 *.elc
