@@ -8,19 +8,18 @@
 (package-initialize)
 (defvar gcg/packages
   '(haskell-mode
-    auto-complete
     rainbow-delimiters
+    projectile
+    which-key
     smartparens
+    clj-refactor
     flycheck
     magit
     smex
     zenburn-theme
     cider
     clojure-mode
-    company
-    company-irony
-    ac-cider
-    ac-nrepl
+    company  
     exec-path-from-shell
     rainbow-mode))
 

@@ -44,14 +44,13 @@
 
 (add-to-list 'exec-path "/home/gganley/bin")
 
-(add-hook 'org-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-x C-s")
-			   '(lambda ()
-			      (interactive)
-			      (save-buffer)
-			      (org-latex-export-to-pdf)))))
 (add-to-list 'auto-mode-alist '("\\.pl\\'" . prolog-mode))
+
+(setq cider-overlays-use-font-lock t)
+
+(setq cider-pprint-fn 'puget)
+
+(projectile-global-mode)
 
 (require 'smartparens-config)
 (provide 'gganley-config)
