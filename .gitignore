@@ -20,3 +20,5 @@ eshell/
 /tramp
 irony/*
 session*
+/projectile-bookmarks.eld
+semanticdb/
