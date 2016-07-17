@@ -12,6 +12,7 @@
     projectile
     which-key
     smartparens
+    solarized-theme
     clj-refactor
     flycheck
     magit

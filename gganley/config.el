@@ -38,8 +38,6 @@
 
 (display-time-mode t)
 
-(load-theme 'zenburn t)
-
 (global-prettify-symbols-mode +1)
 
 (add-to-list 'exec-path "/home/gganley/bin")
@@ -51,6 +49,8 @@
 (setq cider-pprint-fn 'puget)
 
 (projectile-global-mode)
+
+(load-theme 'solarized-dark t)
 
 (require 'smartparens-config)
 (provide 'gganley-config)
