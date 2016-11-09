@@ -52,5 +52,15 @@
 
 (load-theme 'solarized-dark t)
 
+(set-default 'truncate-lines t)
+
+(setq cider-repl-use-pretty-printing t)
+
+(setq truncate-lines t)
+
+(setq cider-repl-history-file "/home/gganley/random/clj-repl-history")
+
+(setq eldoc-idle-delay 0.1)
+
 (require 'smartparens-config)
 (provide 'gganley-config)
