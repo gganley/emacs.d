@@ -17,8 +17,8 @@
 (fringe-mode 4)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(set-default-font "Source Code Pro-10")
-(setq default-frame-alist '((font . "Source Code Pro-10")))
+(set-default-font "Deja Vu Sans Mono-10")
+(setq default-frame-alist '((font . "Deja Vu Sans Mono-10")))
 
 (setq erc-hide-list '("JOIN" "QUIT" "NICK"))
 
