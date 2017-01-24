@@ -59,5 +59,10 @@
 
 (setq ein:use-auto-complete t)
 
+
+(setq wolfram-alpha-app-id
+      (with-temp-buffer
+	(insert-file-contents "~/wolfram-app-id")
+	(buffer-string)))
 (require 'smartparens)
 (provide 'gganley-config)

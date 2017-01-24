@@ -25,4 +25,6 @@
              [mouse-5] [down-mouse-5] [drag-mouse-5] [double-mouse-5] [triple-mouse-5]))
   (global-unset-key k))
 
+(global-set-key (kbd "C-c w a") 'wolfram-alpha)
+
 (provide 'keybindings)
