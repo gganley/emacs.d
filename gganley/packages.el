@@ -14,8 +14,10 @@
     smartparens
     solarized-theme
     clj-refactor
+    irony
     flycheck
     magit
+    company-jedi
     smex
     zenburn-theme
     cider

@@ -52,5 +52,12 @@
 
 (load-theme 'solarized-dark t)
 
-(require 'smartparens-config)
+(setq-default truncate-lines t)
+
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
+
+(setq ein:use-auto-complete t)
+
+(require 'smartparens)
 (provide 'gganley-config)
