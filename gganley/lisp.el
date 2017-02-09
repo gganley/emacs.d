@@ -1,15 +1,15 @@
 (setq cider-repl-display-help-banner nil)
+(setq cljr-magic-requires t)
+;; -*- lexical-binding: t -*-
+;;;;;;;;;
+;; global
+(require 'smartparens-config)
+>>>>>>> 46ef00cc5c64c3b4603a6151c75d58894bb4b740
 
 (add-hook 'minibuffer-setup-hook 'turn-on-smartparens-strict-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keybinding management
-(define-key smartparens-mode-map (kbd "C-)") 'sp-forward-slurp-sexp)
-(define-key smartparens-mode-map (kbd "C-(") 'sp-backward-slurp-sexp)
-
-(define-key smartparens-mode-map (kbd "C-M-)") 'sp-forward-barf-sexp)
-(define-key smartparens-mode-map (kbd "C-M-(") 'sp-backward-barf-sexp)
-
 (define-key smartparens-mode-map (kbd "C-M-f") 'sp-forward-sexp)
 (define-key smartparens-mode-map (kbd "C-M-b") 'sp-backward-sexp)
 
@@ -48,6 +48,5 @@
 (define-key smartparens-mode-map (kbd "M-F") 'sp-forward-symbol)
 (define-key smartparens-mode-map (kbd "M-B") 'sp-backward-symbol)
 
-(sp-pair "'" nil :actions :rem)
-
+; (sp-pair "'" nil :actions :rem)
 (provide 'gganley-lisp)

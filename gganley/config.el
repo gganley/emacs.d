@@ -65,4 +65,5 @@
 	(insert-file-contents "~/wolfram-app-id")
 	(buffer-string)))
 (require 'smartparens)
+
 (provide 'gganley-config)
