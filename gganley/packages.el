@@ -17,7 +17,6 @@
     irony
     flycheck
     magit
-    company-jedi
     smex
     zenburn-theme
     cider

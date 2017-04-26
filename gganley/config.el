@@ -17,8 +17,8 @@
 (fringe-mode 4)
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(set-default-font "Deja Vu Sans Mono-10")
-(setq default-frame-alist '((font . "Deja Vu Sans Mono-10")))
+(set-default-font "Droid Sans Mono-10")
+(setq default-frame-alist '((font . "Droid Sans Mono-10")))
 
 (setq erc-hide-list '("JOIN" "QUIT" "NICK"))
 
@@ -54,16 +54,32 @@
 
 (setq-default truncate-lines t)
 
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
-
-(setq ein:use-auto-complete t)
-
-
 (setq wolfram-alpha-app-id
       (with-temp-buffer
 	(insert-file-contents "~/wolfram-app-id")
 	(buffer-string)))
 (require 'smartparens)
+
+;; 1. hook flyspell into org-mode
+(add-hook 'org-mode-hook 'flyspell-mode)
+(add-hook 'org-mode-hook 'flyspell-buffer)
+
+;; 2. ignore message flags
+(setq flyspell-issue-message-flag nil)
+
+;; 3. ignore tex commands
+(add-hook 'org-mode-hook (lambda () (setq ispell-parser 'tex)))
+(defun flyspell-ignore-tex ()
+  (interactive)
+  (set (make-variable-buffer-local 'ispell-parser) 'tex))
+(add-hook 'org-mode-hook 'flyspell-ignore-tex)
+
+;; (add-hook 'prog-mode-hook 'flyspell-mode)
+
+(setq org-startup-indented t)
+(setq org-startup-folded nil)
+
+(add-hook 'org-mode-hook (lambda ()
+			   (visual-line-mode 1)))
 
 (provide 'gganley-config)
