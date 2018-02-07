@@ -2,3 +2,7 @@
 /elpa/
 *~
 /savefile/
+/eshell/
+recentf
+.emacs.desktop
+url/
