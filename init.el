@@ -146,9 +146,6 @@
   (load-theme 'solarized-dark t))
 
 
-(use-package rainbow-delimiters
-  :ensure t)
-
 (use-package magit
   :ensure t
   :bind (("C-x g" . magit-status)))
