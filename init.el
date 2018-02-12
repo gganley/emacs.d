@@ -12,7 +12,11 @@
 
 (require 'package)
 
-(set-face-attribute 'default t :font "Monaco-9")
+(setq is-a-mac (eq system-type 'darwin))
+
+(if is-a-mac
+  (set-face-attribute 'default t :font "Monaco-9")
+  (set-face-attribute 'default t :font "Source Code Pro-10"))
 
 (setq custom-file "~/.emacs-custom.el")
 (load custom-file)
