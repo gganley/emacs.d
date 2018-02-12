@@ -17,7 +17,6 @@
 
 (require 'package)
 
-
 (setq is-a-mac (eq system-type 'darwin))
 
 (if is-a-mac
@@ -124,6 +123,7 @@
 (use-package rainbow-delimiters
   :ensure t)
 
+;; Interactive elisp
 (use-package ielm
   :config
   (add-hook 'ielm-mode-hook #'eldoc-mode)
