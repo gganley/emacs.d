@@ -163,7 +163,6 @@
   (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
     (add-hook hook #'elisp-slime-nav-mode)))
 
-(add-to-list 'load-path "~/code/elisp/parseclj")
 
 (require 'smartparens)
 (use-package smartparens
