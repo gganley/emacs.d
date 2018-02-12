@@ -109,6 +109,8 @@
 
 (require 'use-package)
 
+(use-package rainbow-delimiters
+  :ensure t)
 
 (use-package ielm
   :config
