@@ -7,3 +7,9 @@ recentf
 .emacs.desktop
 url/
 flycheck_init.el
+.bookmarks.el
+.emacs-custom.el
+.emacs.desktop.lock
+notes.org
+org/
+projectile-bookmarks.eld
