@@ -184,9 +184,6 @@
   (add-hook 'ielm-mode-hook #'smartparens-strict-mode)
   (add-hook 'lisp-mode-hook #'smartparens-strict-mode)
   (add-hook 'eval-expression-minibuffer-setup-hook #'smartparens-strict-mode)
-  (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
-  (add-hook 'cider-mode-hook #'smartparens-strict-mode)
-  (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)
   (sp-with-modes sp-lisp-modes
     (sp-local-pair "'" nil :actions nil))
   (sp-with-modes sp-lisp-modes
@@ -281,8 +278,10 @@
 
 (use-package clojure-mode
   :ensure t
+  :requires (smartparens)
   :config
   (add-hook 'clojure-mode-hook #'subword-mode)
+  (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
   (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
 
 (use-package cider
