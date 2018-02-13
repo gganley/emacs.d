@@ -54,6 +54,10 @@
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
+;; Likewise for menubar
+(when (fboundp 'menu-bar-mode)
+  (menu-bar-mode -1))
+
 ;; Don't distract me
 (blink-cursor-mode -1)
 
