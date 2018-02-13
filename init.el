@@ -334,12 +334,6 @@
   :config
   (add-hook 'markdown-mode-hook #'visual-line-mode))
 
-;; TODO: What does imenu do?
-(use-package imenu-anywhere
-  :ensure t
-  :bind (("C-c i" . imenu-anywhere)
-         ("s-i" . imenu-anywhere)))
-
 ;; Spell checking
 (use-package flyspell
   :config
