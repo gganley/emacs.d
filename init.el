@@ -214,9 +214,7 @@
                  (sp-local-pair "#{" "}"
                                 :wrap "C-#"))
   (sp-with-modes sp-lisp-modes
-    (sp-local-pair "{" nil :wrap "C-{"))
-  (sp-with-modes sp-lisp-modes
-    (sp-local-pair "<" ">" :wrap "C-<")))
+    (sp-local-pair "{" nil :wrap "C-{")))
 
 ;; Highlight current sexp's parens
 (use-package paren
