@@ -13,3 +13,4 @@ flycheck_init.el
 notes.org
 org/
 projectile-bookmarks.eld
+cider-history.clj
