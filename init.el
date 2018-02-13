@@ -498,7 +498,8 @@
   :ensure t
   :requires (clojure-mode cider)
   :config
-  (cljr-add-keybindings-with-prefix "C-c m"))
+  (cljr-add-keybindings-with-prefix "C-c m")
+  (clj-refactor-mode t))
 
 (use-package yasnippet-snippets
   :ensure t
