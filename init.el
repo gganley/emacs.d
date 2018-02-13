@@ -312,6 +312,7 @@
 (use-package cider
   :ensure t
   :config
+  (setq cider-repl-display-help-banner nil)
   (add-hook 'cider-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)
