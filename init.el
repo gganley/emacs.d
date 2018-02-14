@@ -120,7 +120,8 @@
 ;; I don't need escape bound to this
 (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))
 
-(require 'use-package)
+(eval-when-compile
+  (require 'use-package))
 
 (use-package autorevert
   :delight auto-revert-mode
