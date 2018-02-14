@@ -167,10 +167,6 @@
   :config
   (load-theme 'solarized-dark t))
 
-;; Helps you manage sexps
-(use-package rainbow-delimiters
-  :ensure t)
-
 ;; Git manager
 (use-package magit
   :ensure t
