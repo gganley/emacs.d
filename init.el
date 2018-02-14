@@ -286,12 +286,6 @@
   (when (memq window-system '(mac ns))
     (exec-path-from-shell-initialize)))
 
-;; sexps are now KappaPride
-(use-package rainbow-mode
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-mode))
-
 ;; Highlight whitespace
 (use-package whitespace
   :init
