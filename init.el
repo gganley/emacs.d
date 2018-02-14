@@ -198,21 +198,17 @@
   :config
   (add-hook 'prog-mode-hook #'smartparens-strict-mode)
   (sp-with-modes sp-lisp-modes
-                 (sp-local-pair "'" nil :actions nil))
+    (sp-local-pair "'" nil :actions nil))
   (sp-with-modes sp-lisp-modes
-                 (sp-local-pair "`" nil :actions nil))
+    (sp-local-pair "`" nil :actions nil))
   (sp-with-modes sp-lisp-modes
-                 (sp-local-pair "(" nil
-                                :wrap "C-("))
+    (sp-local-pair "(" nil :wrap "C-("))
   (sp-with-modes sp-lisp-modes
-                 (sp-local-pair "\"" nil
-                                :wrap "C-\""))
+    (sp-local-pair "\"" nil :wrap "C-\""))
   (sp-with-modes sp-lisp-modes
-                 (sp-local-pair "[" nil
-                                :wrap "<C-[>"))
+    (sp-local-pair "[" nil :wrap "<C-[>"))
   (sp-with-modes sp-lisp-modes
-                 (sp-local-pair "#{" "}"
-                                :wrap "C-#"))
+    (sp-local-pair "#{" "}" :wrap "C-#"))
   (sp-with-modes sp-lisp-modes
     (sp-local-pair "{" nil :wrap "C-{")))
 
