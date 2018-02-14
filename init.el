@@ -496,6 +496,9 @@
 
 (use-package clj-refactor
   :ensure t
+  :init
+  ;; Taken from weavejester
+  (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
   :config
   (cljr-add-keybindings-with-prefix "C-c m")
   (clj-refactor-mode t))
