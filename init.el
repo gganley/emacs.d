@@ -503,10 +503,19 @@
 ;; Taken from weavejester
 (use-package yasnippet
   :ensure t
-  :init
-  (yas-global-mode 1)
-  (use-package yasnippet-snippets)
-  (use-package clojure-snippets))
+  :diminish yas-minor-mode
+  :config
+  (use-package yasnippet-snippets :ensure t :diminish)
+  (use-package clojure-snippets :ensure t :diminish)
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode))
+
+
+
+;; What did my change do?
+(use-package restart-emacs
+  :ensure t)
+
 
 ;;; Find commands
 (define-key 'help-command (kbd "C-f") 'find-function)
