@@ -378,6 +378,12 @@
   :config
   (global-set-key "\C-s" 'swiper))
 
+(use-package counsel
+  :ensure t
+  :bind (("C-x C-f" . counsel-find-file)
+         ("C-h f" . counsel-describe-function)
+         ("C-h v" . counsel-describe-variable)
+         ("M-y" . counsel-yank-pop)))
 (use-package buffer-move
   :ensure t
   :config
