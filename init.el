@@ -182,19 +182,20 @@
 (use-package smartparens
   :ensure t
   :bind
-  (("C-M-f" . sp-forward-sexp)
-   ("C-M-b" . sp-backward-sexp)
-   ("C-M-e" . sp-up-sexp)
-   ("C-M-d" . sp-down-sexp)
-   ("C-M-n" . sp-next-sexp)
-   ("C-M-p" . sp-previous-sexp)
-   ("C-M-t" . sp-transpose)
-   ("M-D" . sp-splice-sexp)
-   ("C-M-k" . sp-kill-sexp)
-   ("C-M-w" . sp-copy-sexp)
-   ("C-)" . sp-forward-slurp-sexp)
-   ("C-M-)" . sp-forward-barf-sexp)
-   ("C-M-r" . sp-raise-sexp))
+  (:map smartparens-strict-mode-map
+        ("C-M-f" . sp-forward-sexp)
+        ("C-M-b" . sp-backward-sexp)
+        ("C-M-e" . sp-up-sexp)
+        ("C-M-d" . sp-down-sexp)
+        ("C-M-n" . sp-next-sexp)
+        ("C-M-p" . sp-previous-sexp)
+        ("C-M-t" . sp-transpose)
+        ("M-D" . sp-splice-sexp)
+        ("C-M-k" . sp-kill-sexp)
+        ("C-M-w" . sp-copy-sexp)
+        ("C-)" . sp-forward-slurp-sexp)
+        ("C-M-)" . sp-forward-barf-sexp)
+        ("C-M-r" . sp-raise-sexp))
   :config
   (add-hook 'prog-mode-hook #'smartparens-strict-mode)
   (sp-with-modes sp-lisp-modes
