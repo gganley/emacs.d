@@ -131,7 +131,8 @@
   (global-auto-revert-mode t))
 
 (use-package rainbow-delimiters
-  :ensure t)
+  :ensure t
+  :delight)
 
 ;; Interactive elisp
 (use-package ielm
