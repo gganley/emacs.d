@@ -204,7 +204,7 @@
    ("C-M-)" . sp-forward-barf-sexp)
    ("C-M-r" . sp-raise-sexp))
   :config
-  (add-hook 'prog-mode-hook #'smartparens-strict-mode)
+  (smartparens-global-mode 1)
   (sp-with-modes sp-lisp-modes
     (sp-local-pair "'" nil :actions nil))
   (sp-with-modes sp-lisp-modes
