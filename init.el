@@ -502,17 +502,14 @@
   :config
   (cljr-add-keybindings-with-prefix "C-c m"))
 
-(use-package yasnippet-snippets
-  :ensure t)
 
-(use-package clojure-snippets
-  :ensure t)
-
+;; Taken from weavejester
 (use-package yasnippet
   :ensure t
-  :config
-  (yas-reload-all)
-  (add-hook 'prog-mode-hook #'yas-minor-mode))
+  :init
+  (yas-global-mode 1)
+  (use-package yasnippet-snippets)
+  (use-package clojure-snippets))
 
 ;;; Find commands
 (define-key 'help-command (kbd "C-f") 'find-function)
