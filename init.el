@@ -182,6 +182,7 @@
 ;; TODO: What the fuck does this do
 (use-package elisp-slime-nav
   :ensure t
+  :diminish
   :config
   (dolist (hook '(emacs-lisp-mode-hook ielm-mode-hook))
     (add-hook hook #'elisp-slime-nav-mode)))
@@ -189,6 +190,7 @@
 ;; Makes working with sexps bearable
 (use-package smartparens
   :ensure t
+  :diminish
   :bind
   (("C-M-f" . sp-forward-sexp)
    ("C-M-b" . sp-backward-sexp)
@@ -288,6 +290,7 @@
 
 ;; Highlight whitespace
 (use-package whitespace
+  :diminish
   :init
   (dolist (hook '(prog-mode-hook))
     (add-hook hook #'whitespace-mode))
@@ -310,6 +313,9 @@
   (add-hook 'cider-repl-mode-hook #'eldoc-mode)
   (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode))
 
+(use-package eldoc
+  :diminish)
+
 ;; TODO:
 ;; Understand how I want to arrange my dependencies because right now
 ;; there are constantly a shit ton of weird behaviors
@@ -328,6 +334,7 @@
 
 ;; Spell checking
 (use-package flyspell
+  :diminish
   :config
   (when (eq system-type 'windows-nt)
     (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/"))
@@ -339,6 +346,7 @@
 ;; Compile time checking
 (use-package flycheck
   :ensure t
+  :diminish
   :config
   (dolist (hook '(prog-mode-hook))
     (add-hook hook #'flycheck-mode)))
@@ -346,19 +354,20 @@
 ;; Essential, pops a menu for keyboard prefixs
 (use-package which-key
   :ensure t
+  :diminish
   :config
   (which-key-mode +1))
 
-;; TODO: what does this do...
+;; A better search
 (use-package ivy
   :ensure t
-  :config
+  :diminish
+  :init
   (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
-  (global-set-key (kbd "<f6>") 'ivy-resume))
+  :config
+  (setq ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t))
 
-;; A better search
 (use-package swiper
   :ensure t
   :config
@@ -370,6 +379,25 @@
          ("C-h f" . counsel-describe-function)
          ("C-h v" . counsel-describe-variable)
          ("M-y" . counsel-yank-pop)))
+
+;; github.com/bbatsov/emacs.d
+;; hippie expand is dabbrev expand on steroids
+(setq hippie-expand-try-functions-list '(yas-hippie-try-expand
+                                         try-expand-dabbrev
+                                         try-expand-dabbrev-all-buffers
+                                         try-expand-dabbrev-from-kill
+                                         try-complete-file-name-partially
+                                         try-complete-file-name
+                                         try-expand-all-abbrevs
+                                         try-expand-list
+                                         try-expand-line
+                                         try-complete-lisp-symbol-partially
+                                         try-complete-lisp-symbol))
+
+;; use hippie-expand instead of dabbrev
+(global-set-key (kbd "M-/") #'hippie-expand)
+(global-set-key (kbd "s-/") #'hippie-expand)
+
 (use-package buffer-move
   :ensure t
   :config
@@ -382,6 +410,7 @@
 ;; This was actually borrowed from Prelude/packages/prelude-company.el
 (use-package company
   :ensure t
+  :diminish
   :config
   (setq company-idle-delay 0.5)
   (setq company-tooltip-limit 15)
@@ -405,12 +434,12 @@
               truncate-partial-width-windows nil)
 
 ;; TODO: determine if this does jack squat
-;; (when (fboundp 'global-prettify-symbols-mode)
-;;   (add-hook 'after-init-hook 'global-prettify-symbols-mode))
+(when (fboundp 'global-prettify-symbols-mode)
+  (add-hook 'after-init-hook 'global-prettify-symbols-mode))
 
 (defvar desktop-path (list user-emacs-directory))
 (defvar desktop-auto-save-timeout 30)
-;; (desktop-save-mode 1)
+(desktop-save-mode 1)
 
 (setq-default history-length 1000)
 (add-hook 'after-init-hook 'savehist-mode)
@@ -472,7 +501,10 @@
 (winner-mode 1)
 
 ;; Easily navigate sillycased words
-(global-subword-mode 1)
+(use-package subword
+  :diminish
+  :init
+  (global-subword-mode 1))
 
 (use-package linum-relative
   :ensure t
@@ -493,6 +525,7 @@
 
 (use-package clj-refactor
   :ensure t
+  :diminish
   :init
   ;; Taken from weavejester
   (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
