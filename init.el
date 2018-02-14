@@ -23,6 +23,10 @@
     (set-face-attribute 'default t :font "Monaco-9")
   (set-face-attribute 'default t :font "Source Code Pro-10"))
 
+(when is-a-mac
+  (setq ns-use-native-fullscreen t)
+  (set-frame-parameter nil 'fullscreen 'fullboth))
+
 ;; Don't fuck up my init.el
 (setq custom-file (expand-file-name ".emacs-custom.el" user-emacs-directory))
 (load custom-file)
