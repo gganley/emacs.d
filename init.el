@@ -16,7 +16,6 @@
       debug-on-quit nil)
 
 (require 'package)
-
 (setq is-a-mac (eq system-type 'darwin))
 
 (if is-a-mac
