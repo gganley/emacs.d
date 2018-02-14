@@ -98,9 +98,7 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;; Global Auto-Revert Mode is a global minor mode that reverts any
-;; buffer associated with a file when the file changes on disk
-(global-auto-revert-mode t)
+
 
 ;; Use utf-8, please
 (set-default-coding-systems 'utf-8)
@@ -123,6 +121,13 @@
 (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))
 
 (require 'use-package)
+
+(use-package autorevert
+  :delight auto-revert-mode
+  :config
+  ;; Global Auto-Revert Mode is a global minor mode that reverts any
+  ;; buffer associated with a file when the file changes on disk
+  (global-auto-revert-mode t))
 
 (use-package rainbow-delimiters
   :ensure t)
