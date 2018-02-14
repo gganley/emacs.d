@@ -300,7 +300,6 @@
 
 (use-package clojure-mode
   :ensure t
-  :requires (smartparens)
   :config
   (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
   (add-hook 'clojure-mode-hook #'subword-mode)
@@ -484,7 +483,6 @@
 
 (use-package hlinum
   :ensure t
-  :requires (linum-relative)
   :config
   (hlinum-activate))
 
@@ -494,18 +492,15 @@
 
 (use-package clj-refactor
   :ensure t
-  :requires (clojure-mode cider)
   :config
   (cljr-add-keybindings-with-prefix "C-c m")
   (clj-refactor-mode t))
 
 (use-package yasnippet-snippets
-  :ensure t
-  :requires (yasnippet))
+  :ensure t)
 
 (use-package clojure-snippets
-  :ensure t
-  :requires (yasnippet))
+  :ensure t)
 
 (use-package yasnippet
   :ensure t
