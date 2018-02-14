@@ -126,6 +126,9 @@
 
 (require 'use-package)
 
+(use-package diminish
+  :ensure t)
+
 (use-package autorevert
   :delight auto-revert-mode
   :config
