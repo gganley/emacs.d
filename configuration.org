@@ -55,7 +55,11 @@
   (setq scroll-preserve-screen-position t)
 
   ;; Is annoying as fuck during a dark mode
-  (toggle-scroll-bar -1)
+  (if (fboundp 'set-scroll-bar-mode)
+      (set-scroll-bar-mode nil))
+
+  (when (fboundp 'pixel-scroll-mode)
+    (pixel-scroll-mode 1))
 
   (setq next-screen-context-lines 10
         scroll-preserve-screen-position t)
