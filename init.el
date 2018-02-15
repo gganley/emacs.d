@@ -31,3 +31,4 @@
 (require 'init-exec-path)
 (require 'init-editor)
 (require 'init-os)
+(require 'init-lisp)
