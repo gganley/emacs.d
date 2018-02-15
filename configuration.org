@@ -95,9 +95,7 @@
                      (abbreviate-file-name (buffer-file-name))
                    "%b"))))
 
-
-
-  (setq font-lock-maximum-decoration t)
+  (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
   (setq ring-bell-function (lambda ()
                              (invert-face 'mode-line)
