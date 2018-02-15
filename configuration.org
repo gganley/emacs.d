@@ -81,7 +81,6 @@
   (when (fboundp 'global-prettify-symbols-mode)
     (add-hook 'after-init-hook 'global-prettify-symbols-mode))
 #+END_SRC
-
 * Emacs_OS
 #+BEGIN_SRC emacs-lisp
   ;;; Emacs the operating system configuration
