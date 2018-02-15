@@ -1,2 +1,3 @@
 # emacs.d
-NEW WORLD ORDER. WHAT IS THIS ANYMORE.
+
+This is some fun stuff, all the confiugration is located in [configuration.org](configuration.org)
