@@ -343,7 +343,6 @@
           savehist-file (expand-file-name "savehist" savefile-dir))
     (savehist-mode +1))
 
-
   (use-package recentf
     :config
     (setq recentf-save-file (expand-file-name "recentf" savefile-dir)
@@ -539,6 +538,14 @@
   ;; What did my change do?
   (use-package restart-emacs
     :ensure t)
+
+  (use-package aggressive-indent
+    :ensure t
+    :config
+    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+    (add-hook 'clojure-mode-hook #'agressive-indent-mode)
+    (add-hook 'cider-mode-hook #'agressive-indent-mode)
+    (add-hook 'cider-repl-mode-hook #'agressive-indent-mode))
 #+END_SRC
 
 * Org configuration area
