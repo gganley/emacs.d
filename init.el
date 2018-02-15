@@ -34,3 +34,4 @@
 (require 'init-os)
 (require 'init-lisp)
 (require 'init-company)
+(require 'init-clojure)
