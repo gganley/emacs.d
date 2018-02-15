@@ -33,3 +33,4 @@
 (require 'init-editor)
 (require 'init-os)
 (require 'init-lisp)
+(require 'init-company)
