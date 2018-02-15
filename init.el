@@ -26,3 +26,5 @@
             (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+(require 'init-elpa)
