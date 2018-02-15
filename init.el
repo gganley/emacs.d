@@ -29,3 +29,4 @@
 
 (require 'init-elpa)
 (require 'init-editor)
+(require 'init-os)
