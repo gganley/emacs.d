@@ -47,7 +47,7 @@
   (add-hook 'cider-mode-hook #'smartparens-strict-mode)
   (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)
   (add-hook 'lisp-interactive-mode-hook #'smartparens-strict-mode)
-
+  :config
   (sp-with-modes sp-lisp-modes
     (sp-local-pair "'" nil :actions nil))
   (sp-with-modes sp-lisp-modes
