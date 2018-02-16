@@ -41,7 +41,7 @@
    ("C-)" . sp-forward-slurp-sexp)
    ("C-M-)" . sp-forward-barf-sexp)
    ("C-M-r" . sp-raise-sexp))
-  :config
+  :init
   (add-hook 'emacs-lisp-mode-hook #'smartparens-strict-mode)
   (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
   (add-hook 'cider-mode-hook #'smartparens-strict-mode)
