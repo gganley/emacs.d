@@ -80,8 +80,8 @@
   :ensure t
   :config
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-  (add-hook 'clojure-mode-hook #'agressive-indent-mode)
-  (add-hook 'cider-mode-hook #'agressive-indent-mode)
-  (add-hook 'cider-repl-mode-hook #'agressive-indent-mode))
+  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+  (add-hook 'cider-mode-hook #'aggressive-indent-mode)
+  (add-hook 'cider-repl-mode-hook #'aggressive-indent-mode))
 
 (provide 'init-lisp)
