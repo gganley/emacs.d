@@ -8,3 +8,5 @@
               markdown-hide-urls t)
   :config
   (add-hook 'markdown-mode-hook #'visual-line-mode))
+
+(provide 'init-prose)
