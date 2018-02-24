@@ -90,10 +90,7 @@
             (search-ring              . 20)
             (shell-command-history    . 50))))
 
-(package-initialize)
 
-(unless package-archive-contents
-  (package-refresh-contents))
 
 ;; Loads newest version of a file
 (setq load-prefer-newer t)
