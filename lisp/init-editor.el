@@ -103,8 +103,7 @@
 (use-package ivy
   :ensure t
   :diminish
-  :init
-  (ivy-mode 1)
+  :bind ("C-x b" . ivy-switch-buffer))
   :config
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t))
