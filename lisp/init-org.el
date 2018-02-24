@@ -11,6 +11,13 @@
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
+  (setq org-capture-templates
+        `(("t" "todo" entry (file "")
+           "* NEXT %?\n%U\n")
+          ("n" "note" entry (file "")
+           "* %? :NOTE:\n%U\n%a\n")
+          ))
+  
   (setq org-src-fontify-natively t)
   ;; Taken from this post pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/
   (defun org-begin-template ()
