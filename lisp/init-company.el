@@ -2,13 +2,14 @@
 (use-package company
   :ensure t
   :diminish
+  :init
+  (add-hook 'prog-mode-hook #'company-mode)
+  (global-set-key (kbd "M-<tab>") #'company-complete)
   :config
-  (setq company-idle-delay 0.5)
+  (setq company-idle-delay nil)
   (setq company-tooltip-limit 15)
   (setq company-minimum-prefix-length 2)
   ;; Don't flip the direction, that shit is tedious
-  (setq company-tooltip-flip-when-above nil)
-  (dolist (hook '(prog-mode-hook))
-    (add-hook hook #'company-mode)))
+  (setq company-tooltip-flip-when-above nil))
 
 (provide 'init-company)
