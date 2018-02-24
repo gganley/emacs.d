@@ -1,5 +1,10 @@
 ;;; Commentary:
 
+;; Handles all the responsibilities of the editor such as editing short cuts,
+;; scrollbars, in-text search, etc
+
+;;; Code:
+
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
