@@ -109,6 +109,8 @@
   :ensure t
   :bind ([f8] . neotree-toggle))
 
+(use-package dashboard
+  :ensure t
   :config
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t))
