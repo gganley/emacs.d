@@ -112,8 +112,9 @@
 (use-package dashboard
   :ensure t
   :config
-  (setq ivy-use-virtual-buffers t
-        enable-recursive-minibuffers t))
+  (setq dashboard-items '((recents  . 20)
+                          (projects . 5)))
+  (dashboard-setup-startup-hook))
 
 (use-package swiper
   :ensure t
