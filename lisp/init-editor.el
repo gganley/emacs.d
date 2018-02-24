@@ -104,6 +104,11 @@
   :ensure t
   :diminish
   :bind ("C-x b" . ivy-switch-buffer))
+
+(use-package neotree
+  :ensure t
+  :bind ([f8] . neotree-toggle))
+
   :config
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t))
