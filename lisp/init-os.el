@@ -142,17 +142,6 @@
 (use-package restart-emacs
   :ensure t)
 
-;; Git manager
-(use-package magit
-  :ensure t
-  :bind (("C-x g" . magit-status)))
-
-(use-package projectile
-  :ensure t
-  :bind ("s-p" . projectile-command-map)
-  :config
-  (setq projectile-completion-system 'ivy)
-  (projectile-mode +1))
 
 ;; Save the place I last was in the buffer
 (use-package saveplace
