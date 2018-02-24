@@ -78,6 +78,10 @@
 (when (fboundp 'global-prettify-symbols-mode)
   (add-hook 'after-init-hook 'global-prettify-symbols-mode))
 
+(use-package esup
+  :ensure t)
+
+(use-package discover
 (use-package autorevert
   :delight auto-revert-mode
   :config
