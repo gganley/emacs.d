@@ -68,6 +68,7 @@
 ;; Search even through folded text e.g. org-mode
 (setq-default case-fold-search t)
 
+;;; CJohansen
 ;; Transpose stuff with M-t
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
 (global-set-key (kbd "M-t l") 'transpose-lines)
