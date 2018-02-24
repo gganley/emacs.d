@@ -41,16 +41,15 @@
 ;; Number of lines preserved at the top and bottom
 (setq scroll-margin 1)
 
-;; Now this is a god damn variable name, only needs to be suffixed by -when-scrolling
+;; Now this is a god damn variable name, only needs to be suffixed by
+;; -when-scrolling
 (setq scroll-preserve-screen-position t)
 
 ;; Is annoying as fuck during a dark mode
 (if (fboundp 'set-scroll-bar-mode)
     (set-scroll-bar-mode nil))
 
-(when (fboundp 'pixel-scroll-mode)
-  (pixel-scroll-mode 1))
-
+;; Control the behavior of hard jumps such as C-v
 (setq next-screen-context-lines 10
       scroll-preserve-screen-position t)
 
