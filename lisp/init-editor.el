@@ -1,5 +1,4 @@
-(dolist (hook '(prog-mode-hook))
-  (add-hook hook (lambda () (setq truncate-lines t))))
+;;; Commentary:
 
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
@@ -62,13 +61,11 @@
 ;; Real emacs knights don't use shift to mark things
 (setq shift-select-mode nil)
 
-(setq-default bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory)
-              case-fold-search t
-              column-number-mode t
-              truncate-lines nil
-              truncate-partial-width-windows nil)
+;; Display columns in modeline
+(setq-default column-number-mode t)
 
-;;; CJohansen
+;; Search even through folded text e.g. org-mode
+(setq-default case-fold-search t)
 
 ;; Transpose stuff with M-t
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
