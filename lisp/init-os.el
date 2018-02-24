@@ -193,7 +193,14 @@
   ;; C-x C-j (dired-jump): Jump to Dired buffer corresponding to current buffer.
   (require 'dired-x))
 
+(use-package alert
+  :ensure t)
+
+(use-package switch-window
   :ensure t
+  :bind ("C-x o" . 'switch-window)
   :config
+  (setq-default switch-window-shortcut-style 'alphabet)
+  (setq-default switch-window-timeout nil))
 
 (provide 'init-os)
