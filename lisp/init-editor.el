@@ -82,6 +82,8 @@
   :ensure t)
 
 (use-package discover
+  :ensure t)
+
 (use-package autorevert
   :delight auto-revert-mode
   :config
