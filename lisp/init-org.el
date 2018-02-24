@@ -1,6 +1,6 @@
 ;;; Org area
 (setq org-directory user-emacs-directory
-      org-default-notes-file (expand-file-name "notes.org" org-directory))
+      org-default-notes-file (expand-file-name "notes.org" "~"))
 
 (use-package org
   :ensure t
