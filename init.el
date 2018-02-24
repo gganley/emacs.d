@@ -16,10 +16,7 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; Purcell
-;;----------------------------------------------------------------------------
-;; Adjust garbage collection thresholds during startup, and thereafter
-;;----------------------------------------------------------------------------
-(setq gc-cons-threshold (* 20 1024 1024))
+(setq gc-cons-threshold (* 1024 1024 1024))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
