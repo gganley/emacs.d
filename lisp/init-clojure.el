@@ -1,3 +1,4 @@
+
 (require 'init-lisp)
 
 (use-package clojure-mode
@@ -30,9 +31,9 @@
          ("C-c m #" . clojure-convert-collection-to-set)
          ("C-c m '" . clojure-convert-collection-to-quoted-list))
   :init
-  ;; Taken from weavejester
   (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1)))
+  (cljr-add-keybindings-with-prefix "C-c m")
   :config
-  (cljr-add-keybindings-with-prefix "C-c m"))
+  (setq cljr-warn-on-eval nil))
 
 (provide 'init-clojure)
