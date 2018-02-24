@@ -91,6 +91,7 @@
             (shell-command-history    . 50))))
 
 
+(setq is-a-mac (eq system-type 'darwin))
 
 ;; Loads newest version of a file
 (setq load-prefer-newer t)
