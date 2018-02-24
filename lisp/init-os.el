@@ -96,9 +96,6 @@
 ;; Loads newest version of a file
 (setq load-prefer-newer t)
 
-;; I have a billion bytes, use a portion
-(setq gc-cons-threshold 50000000)
-
 (defconst savefile-dir (expand-file-name "savefile" user-emacs-directory))
 
 ;; Toggle buffer size display in the mode line
