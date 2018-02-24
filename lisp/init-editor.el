@@ -72,9 +72,7 @@
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
 (global-set-key (kbd "M-t l") 'transpose-lines)
 (global-set-key (kbd "M-t w") 'transpose-words)
-
-;; Kill up to, but not including ARGth occurrence of CHAR.
-(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "M-t p") 'transpose-paragraphs)
 
 ;; TODO: determine if this does jack squat
 (when (fboundp 'global-prettify-symbols-mode)
