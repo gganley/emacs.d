@@ -34,7 +34,7 @@
    ("C-M-d" . sp-down-sexp)
    ("C-M-n" . sp-next-sexp)
    ("C-M-p" . sp-previous-sexp)
-   ("C-M-t" . sp-transpose)
+   ("C-M-t" . sp-transpose-sexp)
    ("M-D" . sp-splice-sexp)
    ("C-M-k" . sp-kill-sexp)
    ("C-M-w" . sp-copy-sexp)

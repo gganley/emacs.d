@@ -70,11 +70,8 @@
 
 ;; Transpose stuff with M-t
 (global-unset-key (kbd "M-t")) ;; which used to be transpose-words
-;; (global-unset-key (kbd "C-M-t")) ;; now this is set to sp-transpose-sexp
 (global-set-key (kbd "M-t l") 'transpose-lines)
 (global-set-key (kbd "M-t w") 'transpose-words)
-;; (global-set-key (kbd "M-t s") 'transpose-sexps) ;; Use C-M-t instead
-(global-set-key (kbd "M-t p") 'transpose-params)
 
 ;; Kill up to, but not including ARGth occurrence of CHAR.
 (global-set-key (kbd "M-z") 'zap-up-to-char)
