@@ -23,42 +23,6 @@
 ;; Undo/redo window configuration with C-c <left>/<right>
 (winner-mode 1)
 
-(defvar desktop-path (list user-emacs-directory))
-(defvar desktop-auto-save-timeout 30)
-(desktop-save-mode 1)
-
-(setq-default history-length 1000)
-(add-hook 'after-init-hook 'savehist-mode)
-
-;; save a bunch of variables to the desktop file
-;; for lists specify the len of the maximal saved data also
-(defvar desktop-globals-to-save
-  (append '((comint-input-ring        . 50)
-            (compile-history          . 30)
-            (dired-regexp-history     . 20)
-            (extended-command-history . 30)
-            (face-name-history        . 20)
-            (file-name-history        . 100)
-            (grep-find-history        . 30)
-            (grep-history             . 30)
-            (ido-buffer-history       . 100)
-            (ido-last-directory-list  . 100)
-            (ido-work-directory-list  . 100)
-            (ido-work-file-list       . 100)
-            (ivy-history              . 100)
-            (magit-read-rev-history   . 50)
-            (minibuffer-history       . 50)
-            (org-clock-history        . 50)
-            (org-refile-history       . 50)
-            (org-tags-history         . 50)
-            (query-replace-history    . 60)
-            (read-expression-history  . 60)
-            (regexp-history           . 60)
-            (regexp-search-ring       . 20)
-            (search-ring              . 20)
-            (shell-command-history    . 50))))
-
-
 ;; Use utf-8, please
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)

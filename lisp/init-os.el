@@ -22,6 +22,78 @@
 ;; This puts all of the things into one goddamn directory
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
 
+(setq desktop-path (list user-emacs-directory)
+      desktop-dirname user-emacs-directory
+      desktop-base-file-name ".emacs-directory"
+      desktop-auto-save-timeout 30)
+
+;; remove desktop after it's been read
+(add-hook 'desktop-after-read-hook
+	  '(lambda ()
+	     ;; desktop-remove clears desktop-dirname
+	     (setq desktop-dirname-tmp desktop-dirname)
+	     (desktop-remove)
+	     (setq desktop-dirname desktop-dirname-tmp)))
+
+(defun saved-session ()
+  (file-exists-p (concat desktop-dirname "/" desktop-base-file-name)))
+
+;; use session-restore to restore the desktop manually
+(defun session-restore ()
+  "Restore a saved emacs session."
+  (interactive)
+  (if (saved-session)
+      (desktop-read)
+    (message "No desktop found.")))
+
+;; use session-save to save the desktop manually
+(defun session-save ()
+  "Save an emacs session."
+  (interactive)
+  (if (saved-session)
+      (if (y-or-n-p "Overwrite existing desktop? ")
+	  (desktop-save-in-desktop-dir)
+	(message "Session not saved."))
+    (desktop-save-in-desktop-dir)))
+
+;; ask user whether to restore desktop at start-up
+(add-hook 'after-init-hook
+	  '(lambda ()
+	     (if (saved-session)
+		 (if (y-or-n-p "Restore desktop? ")
+		     (session-restore)))))
+
+(setq-default history-length 1000)
+(add-hook 'after-init-hook 'savehist-mode)
+
+;; save a bunch of variables to the desktop file
+;; for lists specify the len of the maximal saved data also
+(defvar desktop-globals-to-save
+  (append '((comint-input-ring        . 50)
+            (compile-history          . 30)
+            (dired-regexp-history     . 20)
+            (extended-command-history . 30)
+            (face-name-history        . 20)
+            (file-name-history        . 100)
+            (grep-find-history        . 30)
+            (grep-history             . 30)
+            (ido-buffer-history       . 100)
+            (ido-last-directory-list  . 100)
+            (ido-work-directory-list  . 100)
+            (ido-work-file-list       . 100)
+            (ivy-history              . 100)
+            (magit-read-rev-history   . 50)
+            (minibuffer-history       . 50)
+            (org-clock-history        . 50)
+            (org-refile-history       . 50)
+            (org-tags-history         . 50)
+            (query-replace-history    . 60)
+            (read-expression-history  . 60)
+            (regexp-history           . 60)
+            (regexp-search-ring       . 20)
+            (search-ring              . 20)
+            (shell-command-history    . 50))))
+
 (package-initialize)
 
 (unless package-archive-contents
