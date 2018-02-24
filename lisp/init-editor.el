@@ -134,11 +134,9 @@
   :ensure t
   :diminish yas-minor-mode
   :bind ("C-c C-s" . yas-expand)
-  :init
+  :config
   (use-package yasnippet-snippets :ensure t :diminish)
   (use-package clojure-snippets :ensure t :diminish)
-  :config
-  (define-key yas-minor-mode-map (kbd "SPC") yas-maybe-expand)
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode))
 
