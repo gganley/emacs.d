@@ -19,9 +19,6 @@
 ;; Transparently open compressed files
 (auto-compression-mode t)
 
-;; Undo/redo window configuration with C-c <left>/<right>
-(winner-mode 1)
-
 ;; Use utf-8, please
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
