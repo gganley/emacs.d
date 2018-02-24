@@ -126,7 +126,8 @@
   :bind (("C-x C-f" . counsel-find-file)
          ("C-h f" . counsel-describe-function)
          ("C-h v" . counsel-describe-variable)
-         ("M-y" . counsel-yank-pop)))
+         ("M-y" . counsel-yank-pop)
+         ("M-x" . counsel-M-x)))
 
 ;; Taken from weavejester
 (use-package yasnippet
