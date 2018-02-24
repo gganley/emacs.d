@@ -85,7 +85,7 @@
   :ensure t)
 
 (use-package autorevert
-  :delight auto-revert-mode
+  :diminish auto-revert-mode
   :config
   ;; Global Auto-Revert Mode is a global minor mode that reverts any
   ;; buffer associated with a file when the file changes on disk
