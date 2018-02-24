@@ -150,7 +150,6 @@
   :config
   (global-linum-mode t)
   (linum-relative-mode t)
-  (set-face-attribute 'linum nil :height 90)
   (setq linum-relative-backend 'linum-mode
         linum-relative-current-symbol ""))
 
