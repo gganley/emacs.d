@@ -1,26 +1,22 @@
-;;; Emacs the operating system configuration
+;;; Commentary:
+
+;; Emacs the operating system configuration
+
+;;; Code:
+
+;; Book marks are surprisingly useful when I actually use them
+(setq-default bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory))
+
+(add-to-list 'default-frame-alist '(font . "Monaco-9"))
+(set-face-attribute 'default t :font "Monaco-9")
 
 (define-key 'help-command (kbd "C-f") 'find-function)
 (define-key 'help-command (kbd "C-k") 'find-function-on-key)
 (define-key 'help-command (kbd "C-v") 'find-variable)
 (define-key 'help-command (kbd "C-l") 'find-library)
 
-(setq is-a-mac (eq system-type 'darwin))
-
-(when is-a-mac
-  (setq ns-use-native-fullscreen t)
-  (set-frame-parameter nil 'fullscreen 'fullboth))
-
-;; Don't fuck up my init.el
-(setq custom-file (expand-file-name ".emacs-custom.el" user-emacs-directory))
-(load custom-file)
-
-;; melpa, THE ONE TRUE PACKAGE ARCHIVE
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-
-;; This puts all of the things into one goddamn directory
-(setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
+;; Undo/redo window configuration with C-c <left>/<right>
+(winner-mode 1)
 
 (setq desktop-path (list user-emacs-directory)
       desktop-dirname user-emacs-directory
