@@ -193,14 +193,7 @@
   ;; C-x C-j (dired-jump): Jump to Dired buffer corresponding to current buffer.
   (require 'dired-x))
 
-;; On OS X (and perhaps elsewhere) the $PATH environment variable and
-;; `exec-path' used by a windowed Emacs instance will usually be the
-;; system-wide default path, rather than that seen in a terminal
-;; window.
-(use-package exec-path-from-shell
   :ensure t
   :config
-  (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize)))
 
 (provide 'init-os)
