@@ -4,12 +4,13 @@
 
 (use-package org
   :ensure t
+  :init
+  (add-hook 'org-mode-hook
+            (lambda () (face-remap-add-relative 'default :family "Monospace")))
   :config
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
-  (add-hook 'org-mode-hook
-            (lambda () (face-remap-add-relative 'default :family "Monospace")))
   (setq org-src-fontify-natively t)
   ;; Taken from this post pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/
   (defun org-begin-template ()
