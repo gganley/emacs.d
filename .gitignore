@@ -19,3 +19,5 @@ configuration.el
 .projectile
 projectile.cache
 .python-environments/
+custom.el
+.cask/
