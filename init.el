@@ -20,6 +20,8 @@
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
+(require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
+(cask-initialize)
 (require 'init-elpa)
 (require 'init-exec-path)
 (require 'init-project)

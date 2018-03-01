@@ -18,3 +18,4 @@ configuration.el
 .DS_Store
 .projectile
 projectile.cache
+.python-environments/
