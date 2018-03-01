@@ -22,7 +22,8 @@
 
 (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
 (cask-initialize)
-(require 'init-elpa)
+(require 'pallet)
+(pallet-mode t)
 (require 'init-exec-path)
 (require 'init-project)
 (require 'init-editor)
