@@ -1,6 +1,7 @@
 (source gnu)
 (source melpa)
 
+(depends-on "ag")
 (depends-on "aggressive-indent")
 (depends-on "alert")
 (depends-on "all-the-icons")
