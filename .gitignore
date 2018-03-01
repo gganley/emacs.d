@@ -21,3 +21,4 @@ projectile.cache
 .python-environments/
 custom.el
 .cask/
+smex-items
