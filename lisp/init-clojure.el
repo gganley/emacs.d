@@ -5,7 +5,12 @@
   :ensure t
   :config
   (add-hook 'clojure-mode-hook #'subword-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode))
+  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+  ;; Credit to Tianxiang Xiong
+  (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
+
+  ;; Boot script files
+  (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode)))
 
 (use-package cider
   :ensure t
