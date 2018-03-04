@@ -36,6 +36,9 @@
 	     (desktop-remove)
 	     (setq desktop-dirname desktop-dirname-tmp)))
 
+;; For ERC, will break out one day
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+
 (defun saved-session ()
   "this is taken from somewhere"
   (file-exists-p (concat desktop-dirname "/" desktop-base-file-name)))
