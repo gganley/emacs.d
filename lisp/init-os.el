@@ -1,3 +1,4 @@
+;;; init-os.el --- Emacs is an operating system, right?
 ;;; Commentary:
 
 ;; Emacs the operating system configuration
@@ -208,3 +209,7 @@
   (setq-default switch-window-timeout nil))
 
 (provide 'init-os)
+
+(provide 'init-os)
+
+;;; init-os.el ends here
