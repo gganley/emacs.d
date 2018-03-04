@@ -10,10 +10,14 @@
 (add-to-list 'default-frame-alist '(font . "Monaco-9"))
 (set-face-attribute 'default t :font "Monaco-9")
 
-(define-key 'help-command (kbd "C-f") 'find-function)
-(define-key 'help-command (kbd "C-k") 'find-function-on-key)
-(define-key 'help-command (kbd "C-v") 'find-variable)
-(define-key 'help-command (kbd "C-l") 'find-library)
+(define-key 'help-command (kbd "f") #'helpful-callable)
+(define-key 'help-command (kbd "v") #'helpful-variable)
+(define-key 'help-command (kbd "k") #'helpful-key)
+(define-key 'help-command (kbd "C-f") #'helpful-function)
+(define-key 'help-command (kbd "C-k") #'helpful-function-on-key)
+(define-key 'help-command (kbd "C-v") #'helpful-variable)
+(define-key 'help-command (kbd "C-l") #'helpful-library)
+(define-key 'help-command (kbd "C") #'helpful-command)
 
 ;; Undo/redo window configuration with C-c <left>/<right>
 (winner-mode 1)

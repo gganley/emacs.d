@@ -38,6 +38,7 @@
 (depends-on "git-commit")
 (depends-on "gntp")
 (depends-on "haskell-mode")
+(depends-on "helpful")
 (depends-on "hlinum")
 (depends-on "hydra")
 (depends-on "inflections")
