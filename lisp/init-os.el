@@ -37,6 +37,7 @@
 	     (setq desktop-dirname desktop-dirname-tmp)))
 
 (defun saved-session ()
+  "this is taken from somewhere"
   (file-exists-p (concat desktop-dirname "/" desktop-base-file-name)))
 
 ;; use session-restore to restore the desktop manually

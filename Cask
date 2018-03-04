@@ -1,6 +1,7 @@
 (source gnu)
 (source melpa)
 
+(depends-on "ace-window")
 (depends-on "ag")
 (depends-on "aggressive-indent")
 (depends-on "alert")
@@ -79,6 +80,7 @@
 (depends-on "swiper")
 (depends-on "switch-window")
 (depends-on "use-package")
+(depends-on "web-mode")
 (depends-on "which-key")
 (depends-on "with-editor")
 (depends-on "yasnippet")
