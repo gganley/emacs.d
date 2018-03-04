@@ -13,9 +13,6 @@
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
-
-(add-to-list 'default-frame-alist '(fullscreen . fullboth))
-
 (setq ring-bell-function (lambda ()
                            (invert-face 'mode-line)
                            (run-with-timer 0.05 nil 'invert-face 'mode-line)))
