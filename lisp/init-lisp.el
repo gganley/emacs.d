@@ -11,6 +11,7 @@
 (use-package lisp-mode
   :config
   (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
+  (add-hook 'emacs-lisp-mode-hook (lambda () (eros-mode 1)))
   (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
   (define-key emacs-lisp-mode-map (kbd "C-c C-c") #'eval-defun)
   (add-hook 'lisp-interaction-mode-hook #'eldoc-mode)

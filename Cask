@@ -29,6 +29,7 @@
 (depends-on "elisp-slime-nav")
 (depends-on "epc")
 (depends-on "epl")
+(depends-on "eros")
 (depends-on "esup")
 (depends-on "exec-path-from-shell")
 (depends-on "f")
