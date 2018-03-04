@@ -9,6 +9,7 @@
   (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
 
 (use-package lisp-mode
+  :mode (("Cask" . emacs-lisp-mode))
   :config
   (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
   (add-hook 'emacs-lisp-mode-hook (lambda () (eros-mode 1)))
