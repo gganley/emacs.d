@@ -10,6 +10,7 @@
 (depends-on "avy")
 (depends-on "bind-key")
 (depends-on "buffer-move")
+(depends-on "buttercup")
 (depends-on "cask")
 (depends-on "cider")
 (depends-on "clj-refactor")
