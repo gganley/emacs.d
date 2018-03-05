@@ -22,4 +22,9 @@
   (add-hook 'emacs-startup-hook #'doom|init-theme)
   )
 
+(use-package powerline
+  :ensure t
+  :init
+  (powerline-default-theme))
+
 (provide 'init-themes)
