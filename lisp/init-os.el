@@ -17,7 +17,7 @@
 (define-key 'help-command (kbd "C-f") #'helpful-function)
 (define-key 'help-command (kbd "C-k") #'helpful-function-on-key)
 (define-key 'help-command (kbd "C-v") #'helpful-variable)
-(define-key 'help-command (kbd "C-l") #'helpful-library)
+(define-key 'help-command (kbd "C-l") #'find-library)
 (define-key 'help-command (kbd "C") #'helpful-command)
 
 ;; Undo/redo window configuration with C-c <left>/<right>
