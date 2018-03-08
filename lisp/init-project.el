@@ -6,6 +6,13 @@
   :config
   (setq-default magit-diff-refine-hunk t))
 
+(use-package magithub
+  :ensure t
+  :after magit
+  :config
+  (magithub-feature-autoinject t)
+  (setq magithub-clone-default-directory "~/code"))
+
 (use-package fullframe
   :ensure t
   :init

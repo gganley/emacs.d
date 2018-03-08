@@ -53,6 +53,7 @@
 (depends-on "loop")
 (depends-on "magit")
 (depends-on "magit-popup")
+(depends-on "magithub")
 (depends-on "makey")
 (depends-on "markdown-mode")
 (depends-on "memoize")
