@@ -87,4 +87,12 @@
   (add-hook 'cider-mode-hook #'aggressive-indent-mode)
   (add-hook 'cider-repl-mode-hook #'aggressive-indent-mode))
 
+(use-package elisp-refs
+  :ensure t
+  :bind
+  (("C-c C-l f" . elisp-refs-function)
+   ("C-c C-l m" . elisp-refs-macro)
+   ("C-c C-l v" . elisp-refs-variable)
+   ("C-c C-l s" . elisp-refs-symbol)))
+
 (provide 'init-lisp)
