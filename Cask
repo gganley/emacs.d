@@ -29,6 +29,7 @@
 (depends-on "doom-themes")
 (depends-on "edn")
 (depends-on "elisp-slime-nav")
+(depends-on "elpy")
 (depends-on "epc")
 (depends-on "epl")
 (depends-on "eros")
