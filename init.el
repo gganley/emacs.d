@@ -31,15 +31,21 @@
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
+
+;; Environment setup
 (require 'init-exec-path)
 (require 'init-project)
 (require 'init-editor)
+(require 'init-company)
 (require 'init-themes)
 (require 'init-os)
+
+;; Languages
 (require 'init-lisp)
 (require 'init-clojure)
 (require 'init-python)
 
+;; Prose
 (require 'init-org)
 (require 'init-prose)
-(require 'init-company)
+
