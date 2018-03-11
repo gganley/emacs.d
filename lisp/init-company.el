@@ -3,8 +3,8 @@
   :ensure t
   :diminish
   :init
-  (add-hook 'prog-mode-hook #'company-mode)
   (global-set-key (kbd "M-<tab>") #'company-complete)
+  (add-hook 'prog-mode-hook #'company-mode)
   :config
   (setq company-idle-delay nil)
   (setq company-tooltip-limit 15)
