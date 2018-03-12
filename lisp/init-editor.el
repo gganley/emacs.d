@@ -125,8 +125,8 @@
 (use-package dashboard
   :ensure t
   :config
-  (setq dashboard-items '((recents  . 20)
-                          (projects . 5)))
+  (setq dashboard-items '((projects . 5)
+                          (recents  . 10)))
   (dashboard-setup-startup-hook))
 
 (use-package swiper
