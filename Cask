@@ -68,6 +68,7 @@
 (depends-on "popup")
 (depends-on "powerline")
 (depends-on "projectile")
+(depends-on "pyenv-mode")
 (depends-on "python-environment")
 (depends-on "queue")
 (depends-on "rainbow-delimiters")
