@@ -5,6 +5,9 @@
 
 ;;; Code:
 
+;; For ERC, will break out one day
+(setq erc-hide-list '("JOIN" "PART" "QUIT" "TIMEOUT"))
+
 ;; Book marks are surprisingly useful when I actually use them
 (setq-default bookmark-default-file (expand-file-name ".bookmarks.el" user-emacs-directory))
 
@@ -28,45 +31,7 @@
       desktop-base-file-name ".emacs-directory"
       desktop-auto-save-timeout 30)
 
-;; remove desktop after it's been read
-(add-hook 'desktop-after-read-hook
-	  '(lambda ()
-	     ;; desktop-remove clears desktop-dirname
-	     (setq desktop-dirname-tmp desktop-dirname)
-	     (desktop-remove)
-	     (setq desktop-dirname desktop-dirname-tmp)))
-
-;; For ERC, will break out one day
-(setq erc-hide-list '("JOIN" "PART" "QUIT"))
-
-(defun saved-session ()
-  "this is taken from somewhere"
-  (file-exists-p (concat desktop-dirname "/" desktop-base-file-name)))
-
-;; use session-restore to restore the desktop manually
-(defun session-restore ()
-  "Restore a saved emacs session."
-  (interactive)
-  (if (saved-session)
-      (desktop-read)
-    (message "No desktop found.")))
-
-;; use session-save to save the desktop manually
-(defun session-save ()
-  "Save an emacs session."
-  (interactive)
-  (if (saved-session)
-      (if (y-or-n-p "Overwrite existing desktop? ")
-	  (desktop-save-in-desktop-dir)
-	(message "Session not saved."))
-    (desktop-save-in-desktop-dir)))
-
-;; ask user whether to restore desktop at start-up
-(add-hook 'after-init-hook
-	  '(lambda ()
-	     (if (saved-session)
-		 (if (y-or-n-p "Restore desktop? ")
-		     (session-restore)))))
+(desktop-save-mode 1)
 
 (setq-default history-length 1000)
 (add-hook 'after-init-hook 'savehist-mode)
