@@ -65,7 +65,10 @@
   (linum-relative-mode t)
   (set-face-attribute 'linum-relative-current-face nil :height 100)
   (setq linum-relative-backend 'linum-mode
-        linum-relative-current-symbol ""))
+        linum-relative-current-symbol ""
+	relative-line-numbers-motion-function 'forward-visible-line
+	linum-relative-format "%4s"
+	solarized-scale-org-headlines nil))
 
 (use-package counsel
   :bind (("C-x C-f" . counsel-find-file)
