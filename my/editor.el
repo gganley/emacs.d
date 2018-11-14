@@ -8,6 +8,7 @@
    version-control t
    )
 
+(winner-mode)
 (windmove-default-keybindings)
 
 (add-to-list 'default-frame-alist '(font . "Monaco-11"))
