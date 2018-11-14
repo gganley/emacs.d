@@ -6,6 +6,8 @@
    kept-new-versions 6
    kept-old-versions 2
    version-control t)
+(add-to-list 'default-frame-alist '(font . "Monaco-11"))
+(set-default-font "Monaco-11")
 
 (setq-default history-length 1000)
 (add-hook 'after-init-hook 'savehist-mode)
@@ -57,6 +59,7 @@
   :config
   (global-linum-mode t)
   (linum-relative-mode t)
+  (set-face-attribute 'linum-relative-current-face nil :height 100)
   (setq linum-relative-backend 'linum-mode
         linum-relative-current-symbol ""))
 
