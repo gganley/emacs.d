@@ -5,7 +5,11 @@
    delete-old-versions t
    kept-new-versions 6
    kept-old-versions 2
-   version-control t)
+   version-control t
+   )
+
+(windmove-default-keybindings)
+
 (add-to-list 'default-frame-alist '(font . "Monaco-11"))
 (set-default-font "Monaco-11")
 
