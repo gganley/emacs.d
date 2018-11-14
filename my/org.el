@@ -4,9 +4,6 @@
 
 (use-package org
   :ensure t
-  :init
-  (add-hook 'org-mode-hook
-            (lambda () (face-remap-add-relative 'default :family "Monospace")))
   :config
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
@@ -61,5 +58,9 @@
   ;;bind to key
   (define-key org-mode-map (kbd "C-<") 'org-begin-template))
 
+
+(use-package org-drill
+  :requires cl
+  :ensure org-plus-contrib)
 
 (provide 'my-org)

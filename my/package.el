@@ -1,5 +1,6 @@
 ;; Dependent on packages
 (require 'package)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 (if (not (package-installed-p 'use-package))

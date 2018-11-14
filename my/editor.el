@@ -5,7 +5,7 @@
    delete-old-versions t
    kept-new-versions 6
    kept-old-versions 2
-   version-control t)       ; use versioned backups
+   version-control t)
 
 (setq-default history-length 1000)
 (add-hook 'after-init-hook 'savehist-mode)
@@ -18,6 +18,9 @@
 	 ("M-X" . smex-major-mode-commands))  
   :config
   (smex-initialize))
+
+(use-package use-package-ensure-system-package
+  :ensure t)
 
 (use-package which-key
   :diminish
@@ -111,6 +114,24 @@
     (sp-local-pair "{" nil :wrap "C-{"))
   (sp-with-modes '(org-mode)
     (sp-local-pair "~" nil :wrap "C-~")))
+
+
+(use-package rainbow-delimiters
+  :config
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package prettify-symbols
+  :init
+  (global-prettify-symbols-mode 1)
+  :hook (prog-mode . prettify-symbols-mode))
+
+(use-package yasnippet
+  :requires yasnippet-snippets
+  :bind ("C-c C-s" . yas-expand)
+  :hook (prog-mode . yas-minor-mode)
+  :config
+  
+  (add-to-list 'yas-snippet-dirs '("~/.emacs.d/snippets")))
 
 (use-package flycheck
   :config

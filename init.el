@@ -33,7 +33,9 @@
 (when (fboundp 'get-fullpath)
     (require 'my-package (get-fullpath "my/package.el"))
     (require 'my-editor (get-fullpath "my/editor.el"))
-    (require 'my-rust (get-fullpath "my/rust.el")))
+    (require 'my-rust (get-fullpath "my/rust.el"))
+    (require 'my-org (get-fullpath "my/org.el"))
+    (require 'my-go (get-fullpath "my/go.el")))
 
 (provide 'init)
 ;;; init.el ends here
