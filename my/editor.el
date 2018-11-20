@@ -103,6 +103,7 @@
   (setq-default magit-diff-refine-hunk t))
 
 (use-package magithub
+  :ensure t
   :after magit
   :config
   (magithub-feature-autoinject t)
