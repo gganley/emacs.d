@@ -194,6 +194,12 @@
 
 
 
+(use-package powerline
+  :ensure t
+  :config
+  (powerline-center-theme)
+  (add-hook 'after-init-hook 'powerline-reset))
+
 
 ;; Stolen from (http://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html
 (require 'ansi-color)
