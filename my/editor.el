@@ -190,7 +190,7 @@
 
 
 
-(load-theme 'spacemacs-dark t)
+(load-theme 'dracula t)
 
 
 
