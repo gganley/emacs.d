@@ -28,8 +28,9 @@
 (winner-mode)
 (windmove-default-keybindings)
 
-(add-to-list 'default-frame-alist '(font . "Monaco-11"))
-(set-default-font "Monaco-11")
+(add-hook 'prog-mode-hook 'show-paren-mode)
+
+(add-to-list 'default-frame-alist '(font . "Anonymous Pro for Powerline-10"))
 
 (setq-default history-length 1000)
 (add-hook 'after-init-hook 'savehist-mode)
