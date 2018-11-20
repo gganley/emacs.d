@@ -36,6 +36,7 @@
     (require 'my-rust (get-fullpath "my/rust.el"))
     (require 'my-org (get-fullpath "my/org.el"))
     (require 'my-go (get-fullpath "my/go.el")))
+    (require 'my-python (get-fullpath "my/python.el"))
 
 (provide 'init)
 ;;; init.el ends here
