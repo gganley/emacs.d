@@ -8,6 +8,16 @@
    version-control t
    )
 
+
+(when (window-system)
+  (use-package git-gutter-fringe
+    :ensure t))
+
+(global-git-gutter-mode +1)
+
+(setq-default indicate-buffer-boundaries 'left)
+(setq-default indicate-empty-lines +1)
+
 (winner-mode)
 (windmove-default-keybindings)
 
