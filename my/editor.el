@@ -171,7 +171,11 @@
   :config
   (global-flycheck-mode))
 
-(use-package company)
+(use-package company
+  :ensure t
+  :bind (("M-TAB" . company-complete))
+  :config
+  (add-hook 'after-init-hook 'global-company-mode))
 
 
 
