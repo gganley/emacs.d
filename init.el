@@ -35,7 +35,7 @@
     (require 'my-editor (get-fullpath "my/editor.el"))
     (require 'my-rust (get-fullpath "my/rust.el"))
     (require 'my-org (get-fullpath "my/org.el"))
-    (require 'my-go (get-fullpath "my/go.el")))
+    (require 'my-go (get-fullpath "my/go.el"))
     (require 'my-python (get-fullpath "my/python.el"))
     (require 'my-r (get-fullpath "my/r.el")))
 
