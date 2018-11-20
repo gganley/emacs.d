@@ -163,9 +163,8 @@
 (use-package yasnippet
   :requires yasnippet-snippets
   :bind ("C-c C-s" . yas-expand)
-  :hook (prog-mode . yas-minor-mode)
   :config
-  
+  (yas-global-mode)
   (add-to-list 'yas-snippet-dirs '("~/.emacs.d/snippets")))
 
 (use-package flycheck
