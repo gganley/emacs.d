@@ -102,6 +102,12 @@
   :config
   (setq-default magit-diff-refine-hunk t))
 
+(use-package magithub
+  :after magit
+  :config
+  (magithub-feature-autoinject t)
+  (setq magithub-clone-default-directory "~/Developer"))
+
 (use-package projectile
   :bind (("s-p" . projectile-command-map))
   :config
