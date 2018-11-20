@@ -8,6 +8,13 @@
    version-control t
    )
 
+(defun single-font-size ()
+  "Reset all faces to the height of the default face."
+  (dolist (f (face-list))
+    (when (not (equal 'default f))
+      (set-face-attribute f nil :height 1.0))))
+
+(add-hook 'after-init-hook 'single-font-size)
 
 (when (window-system)
   (use-package git-gutter-fringe
