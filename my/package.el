@@ -3,6 +3,7 @@
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
+(package-refresh-contents)
 (if (not (package-installed-p 'use-package))
     (package-install 'use-package))
 

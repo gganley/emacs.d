@@ -5,8 +5,7 @@
    delete-old-versions t
    kept-new-versions 6
    kept-old-versions 2
-   version-control t
-   )
+   version-control t)
 
 (defun single-font-size ()
   "Reset all faces to the height of the default face."
@@ -30,7 +29,7 @@
 
 (add-hook 'prog-mode-hook 'show-paren-mode)
 
-(add-to-list 'default-frame-alist '(font . "Anonymous Pro for Powerline-10"))
+(add-to-list 'default-frame-alist '(font . "Fira Code-7"))
 
 (setq-default history-length 1000)
 (add-hook 'after-init-hook 'savehist-mode)
@@ -39,6 +38,7 @@
 (setq load-prefer-newer t)
 
 (use-package smex
+  :ensure t
   :bind (("M-x" . smex)
 	 ("M-X" . smex-major-mode-commands))  
   :config
@@ -48,6 +48,7 @@
   :ensure t)
 
 (use-package which-key
+  :ensure t
   :diminish
   :config
   (which-key-mode +1))
@@ -56,16 +57,19 @@
 
 ;; Jump around buffer more effectivly
 (use-package avy
+  :ensure t
   :bind (("s-." . avy-goto-word-or-subword-1)
          ("s-," . avy-goto-char))
   :config
   (setq avy-background t))
 
 (use-package ivy
+  :ensure t
   :diminish
   :bind ("C-x b" . ivy-switch-buffer))
 
 (use-package neotree
+  :ensure t
   :bind ([f8] . neotree-toggle))
 
 ;; (use-package dashboard
@@ -75,21 +79,12 @@
 ;;   (dashboard-setup-startup-hook))
 
 (use-package swiper
+  :ensure t
   :config
   (global-set-key (kbd "C-s") 'swiper))
 
-(use-package linum-relative
-  :config
-  (global-linum-mode t)
-  (linum-relative-mode t)
-  (set-face-attribute 'linum-relative-current-face nil :height 100)
-  (setq linum-relative-backend 'linum-mode
-        linum-relative-current-symbol ""
-	relative-line-numbers-motion-function 'forward-visible-line
-	linum-relative-format "%4s"
-	solarized-scale-org-headlines nil))
-
 (use-package counsel
+  :ensure t
   :bind (("C-x C-f" . counsel-find-file)
          ("C-h f" . counsel-describe-function)
          ("C-h v" . counsel-describe-variable)
@@ -97,6 +92,7 @@
          ("M-x" . counsel-M-x)))
 
 (use-package magit
+  :ensure t
   :bind (("C-x g" . magit-status)
          ("C-x M-g" . magit-dispatch))
   :config
@@ -110,6 +106,7 @@
   (setq magithub-clone-default-directory "~/Developer"))
 
 (use-package projectile
+  :ensure t
   :bind (("s-p" . projectile-command-map))
   :config
   (projectile-mode +1))
@@ -151,49 +148,14 @@
   (sp-with-modes '(org-mode)
     (sp-local-pair "~" nil :wrap "C-~")))
 
-
-(use-package rainbow-delimiters
-  :config
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-(use-package prettify-symbols
-  :init
-  (global-prettify-symbols-mode 1)
-  :hook (prog-mode . prettify-symbols-mode))
-
-(use-package yasnippet
-  :requires yasnippet-snippets
-  :bind ("C-c C-s" . yas-expand)
-  :config
-  (yas-global-mode)
-  (add-to-list 'yas-snippet-dirs '("~/.emacs.d/snippets")))
-
-(use-package flycheck
-  :config
-  (global-flycheck-mode))
-
-(use-package company
-  :ensure t
-  :bind (("M-TAB" . company-complete))
-  :config
-  (add-hook 'after-init-hook 'global-company-mode))
-
-
-
 (fset 'yes-or-no-p-history 'y-or-n-p)
 (add-hook 'prog-mode-hook 'linum-mode)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-(use-package exec-path-from-shell
-  :config
-  (exec-path-from-shell-initialize))
 
 
-
-(load-theme 'dracula t)
-
-
+(load-theme 'darcula t)
 
 (use-package powerline
   :ensure t
