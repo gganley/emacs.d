@@ -19,8 +19,6 @@
   (use-package git-gutter-fringe
     :ensure t))
 
-(global-git-gutter-mode +1)
-
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines +1)
 
@@ -150,12 +148,14 @@
 
 (fset 'yes-or-no-p-history 'y-or-n-p)
 (add-hook 'prog-mode-hook 'linum-mode)
-(toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
 
-
+(use-package darcula-theme
+  :ensure t
+  :config
 (load-theme 'darcula t)
+  )
 
 (use-package powerline
   :ensure t
