@@ -15,24 +15,44 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 
-;; Package independent
-(setq debug-on-error t
-      debug-on-signal nil
-      debug-on-quit nil
-      inhibit-startup-screen t
-      inhibit-startup-echo-area-message "Hello GGANLEY")
+(let ((gc-cons-threshold most-positive-fixnum))
 
-(set-default-coding-systems 'utf-8)
+  ;; Set repositories
+  (require 'package)
+  (setq-default
+   load-prefer-newer t
+   package-enable-at-startup nil)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+  (package-initialize)
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  ;; Install dependencies
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package t))
+  (setq-default
+   use-package-always-defer t
+   use-package-always-ensure t)
 
-(defun get-fullpath (@file-relative-path)
-  (concat (file-name-directory (or load-file-name buffer-file-name)) @file-relative-path))
+  ;; Use latest Org
+  (use-package org :ensure org-plus-contrib)
 
-
-(when (fboundp 'get-fullpath)
-    (require 'my-package (get-fullpath "my/package.el"))
-    (require 'my-editor (get-fullpath "my/editor.el")))
-
-(provide 'init)
+  ;; Tangle configuration
+  (org-babel-load-file (expand-file-name "dotemacs.org" user-emacs-directory))
+  (garbage-collect))
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-themes-enable-bold nil)
+ '(package-selected-packages
+   (quote
+    (aggressive-indent org-plus-contrib which-key use-package-ensure-system-package smex smartparens projectile powerline neotree magithub linum-relative git-gutter-fringe exec-path-from-shell diminish darcula-theme counsel company avy))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

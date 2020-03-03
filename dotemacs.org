@@ -1,0 +1,176 @@
+#+TITLE: DotEmacs
+#+AUTHOR: Gregory Ganley
+
+* Beginning
+#+BEGIN_SRC emacs-lisp
+(when window-system
+  (blink-cursor-mode 0)                           ; Disable the cursor blinking
+  (scroll-bar-mode 0)                             ; Disable the scroll bar
+  (tool-bar-mode 0)                               ; Disable the tool bar
+  (tooltip-mode 0))                               ; Disable the tooltips
+#+END_SRC
+
+Better defaults
+
+#+BEGIN_SRC emacs-lisp
+(setq-default
+ cursor-in-non-selected-windows nil               ; Hide the cursor in inactive windows
+ delete-by-moving-to-trash t                      ; Delete files to trash
+ display-time-default-load-average nil            ; Don't display load average
+ fill-column 120                                  ; Set width for automatic line breaks
+ help-window-select t                             ; Focus new help windows when opened
+ indent-tabs-mode nil                             ; Stop using tabs to indent
+ inhibit-startup-screen t                         ; Disable start-up screen
+ initial-scratch-message ""                       ; Empty the initial *scratch* buffer
+ mouse-yank-at-point t                            ; Yank at point rather than pointer
+ ns-use-srgb-colorspace nil                       ; Don't use sRGB colors
+ recenter-positions '(5 top bottom)               ; Set re-centering positions
+ scroll-conservatively most-positive-fixnum       ; Always scroll by one line
+ scroll-margin 10                                 ; Add a margin when scrolling vertically
+ select-enable-clipboard t                        ; Merge system's and Emacs' clipboard
+ sentence-end-double-space nil                    ; End a sentence after a dot and a space
+ show-help-function nil                           ; Disable help messages
+ show-trailing-whitespace nil                     ; Display trailing whitespaces
+ tab-width 4                                      ; Set width for tabs
+ uniquify-buffer-name-style 'forward              ; Uniquify buffer names
+ window-combination-resize t                      ; Resize windows proportionally
+ x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+(delete-selection-mode 1)                         ; Replace region when inserting text
+(fringe-mode 0)                                   ; Disable fringes
+(fset 'yes-or-no-p 'y-or-n-p)                     ; Replace yes/no prompts with y/n
+(global-subword-mode 1)                           ; Iterate through CamelCase words
+(menu-bar-mode 0)                                 ; Disable the menu bar
+(mouse-avoidance-mode 'banish)                    ; Avoid collision of mouse with point
+(put 'downcase-region 'disabled nil)              ; Enable downcase-region
+(put 'upcase-region 'disabled nil)                ; Enable upcase-region
+(set-default-coding-systems 'utf-8)               ; Default to utf-8 encoding
+#+END_SRC
+
+Garbage-collect on focus-out, Emacs /should/ feel snappier.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'focus-out-hook #'garbage-collect)
+#+END_SRC
+
+* Theme
+
+Load theme and fix some high-level faces to match my personal preferences.
+
+#+BEGIN_SRC emacs-lisp
+(use-package doom-themes
+  :demand t
+  :custom
+  (doom-themes-enable-bold nil)
+  :config
+  (load-theme 'doom-one t)
+  (with-eval-after-load 'erc-goodies
+    (set-face-attribute 'erc-bold-face nil :bold nil))
+  (with-eval-after-load 'flycheck
+    (set-face-attribute 'flycheck-error nil :underline `(:color ,(doom-color 'error) :style line))
+    (set-face-attribute 'flycheck-info nil :underline `(:color ,(doom-color 'highlight) :style line))
+    (set-face-attribute 'flycheck-warning nil :underline `(:color ,(doom-color 'warning) :style line)))
+  (with-eval-after-load 'isearch
+    (set-face-attribute 'isearch nil :background (doom-color 'blue) :foreground (doom-color 'dark-blue))
+    (set-face-attribute 'lazy-highlight nil :foreground (doom-color 'blue)))
+  (with-eval-after-load 'faces
+    (set-face-attribute 'header-line nil :box `(:color ,(doom-color 'modeline-bg) :line-width 7))
+    (set-face-attribute 'help-argument-name nil :foreground (doom-color 'yellow))
+    (set-face-attribute 'variable-pitch nil :family 'unspecified))
+  (with-eval-after-load 'font-lock
+    (set-face-attribute 'font-lock-doc-face nil :italic t))
+  (with-eval-after-load 'outline
+    (set-face-attribute 'outline-1 nil :background 'unspecified))
+  (with-eval-after-load 'magit-diff
+    (set-face-attribute 'magit-diff-added nil :background 'unspecified)
+    (set-face-attribute 'magit-diff-hunk-region nil :inherit 'region)
+    (set-face-attribute 'magit-diff-removed nil :background 'unspecified)))
+#+END_SRC
+
+* Config
+
+** Version Control
+
+Magit provides Git facilities directly from within Emacs.
+
+#+BEGIN_QUOTE
+Magit is an interface to the version control system
+[[https://git-scm.com/][Git]], implemented as an
+[[https://www.gnu.org/software/emacs][Emacs]] package. Magit aspires to be a
+complete Git porcelain. While we cannot (yet) claim that Magit wraps and
+improves upon each and every Git command, it is complete enough to allow even
+experienced Git users to perform almost all of their daily version control tasks
+directly from within Emacs. While many fine Git clients exist, only Magit and
+Git itself deserve to be called porcelains.
+[[https://magit.vc/about.html][(more)]]
+
+[[https://github.com/magit/magit][Jonas Bernoulli]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :demand)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package gitattributes-mode)
+(use-package gitconfig-mode)
+(use-package gitignore-mode)
+#+END_SRC
+
+
+** Quality of Life
+
+Auto-indent code as you write.
+
+#+BEGIN_QUOTE
+=electric-indent-mode= is enough to keep your code nicely aligned when all you
+do is type. However, once you start shifting blocks around, transposing lines,
+or slurping and barfing sexps, indentation is bound to go wrong.
+
+=aggressive-indent-mode= is a minor mode that keeps your code *always* indented.
+It reindents after every change, making it more reliable than
+electric-indent-mode.
+
+[[https://github.com/Malabarba/aggressive-indent-mode][Artur Malabarba]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+(use-package aggressive-indent
+  :hook
+  ((css-mode . aggressive-indent-mode)
+   (emacs-lisp-mode . aggressive-indent-mode)
+   (js-mode . aggressive-indent-mode)
+   (lisp-mode . aggressive-indent-mode)
+   (sgml-mode . aggressive-indent-mode))
+  :custom
+  (aggressive-indent-comments-too t)
+  :config
+  (add-to-list 'aggressive-indent-protected-commands 'comment-dwim))
+#+END_SRC
+
+** Org
+
+This very file is organized with =org-mode=. I am definitely not a power user of
+Org, but I'm getting there. :-)
+
+#+BEGIN_QUOTE
+Org mode is for keeping notes, maintaining TODO lists, planning projects, and
+authoring documents with a fast and effective plain-text system.
+
+[[http://orgmode.org/][Carsten Dominik]]
+#+END_QUOTE
+
+#+BEGIN_SRC emacs-lisp
+(use-package org
+  :custom
+  (org-descriptive-links nil)
+  (org-edit-src-content-indentation 0)
+  (org-edit-src-persistent-message nil)
+  (org-fontify-done-headline t)
+  (org-fontify-quote-and-verse-blocks t)
+  (org-src-window-setup 'current-window)
+  (org-startup-folded nil)
+  (org-startup-truncated nil)
+  (org-support-shift-select 'always)
+  (org-directory "~/org"))
+#+END_SRC
