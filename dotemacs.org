@@ -1,0 +1,224 @@
+#+BEGIN_SRC emacs-lisp
+(when window-system
+  (blink-cursor-mode 0) ; Disable the cursor blinking
+  (scroll-bar-mode 0)   ; Disable the scroll bar
+  (tool-bar-mode 0)     ; Disable the tool bar
+  (tooltip-mode 0))     ; Disable the tooltips
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq-default
+ delete-by-moving-to-trash t                      ; Delete files to trash
+ fill-column 120                                  ; Set width for automatic line breaks
+ help-window-select t                             ; Focus new help windows when opened
+ indent-tabs-mode nil                             ; Stop using tabs to indent
+ inhibit-startup-screen t                         ; Disable start-up screen
+ mouse-yank-at-point t                            ; Yank at point rather than pointer
+ ns-use-srgb-colorspace nil                       ; Don't use sRGB colors
+ recenter-positions '(5 top bottom)               ; Set re-centering positions
+ scroll-conservatively most-positive-fixnum       ; Always scroll by one line
+ scroll-margin 10                                 ; Add a margin when scrolling vertically
+ select-enable-clipboard t                        ; Merge system's and Emacs' clipboard
+ sentence-end-double-space nil                    ; End a sentence after a dot and a space
+ show-help-function nil                           ; Disable help messages
+ show-trailing-whitespace nil                     ; Display trailing whitespaces
+ split-height-threshold nil                       ; Disable vertical window splitting
+ split-width-threshold nil                        ; Disable horizontal window splitting
+ tab-width 4                                      ; Set width for tabs
+ uniquify-buffer-name-style 'forward              ; Uniquify buffer names
+ window-combination-resize t                      ; Resize windows proportionally
+ x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+(cd "~/")                                         ; Move to the user directory
+(delete-selection-mode 1)                         ; Replace region when inserting text
+(fringe-mode 0)                                   ; Disable fringes
+(fset 'yes-or-no-p 'y-or-n-p)                     ; Replace yes/no prompts with y/n
+(global-subword-mode 1)                           ; Iterate through CamelCase words
+(menu-bar-mode 0)                                 ; Disable the menu bar
+(mouse-avoidance-mode 'banish)                    ; Avoid collision of mouse with point
+(put 'downcase-region 'disabled nil)              ; Enable downcase-region
+(put 'upcase-region 'disabled nil)                ; Enable upcase-region
+(set-default-coding-systems 'utf-8)               ; Default to utf-8 encoding
+#+END_SRC
+** Enable fullscreen
+#+BEGIN_SRC emacs-lisp
+(if (eq window-system 'ns)
+    (toggle-frame-maximized)
+  (toggle-frame-fullscreen))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'focus-out-hook #'garbage-collect)
+#+END_SRC
+
+** Theme
+#+BEGIN_SRC emacs-lisp
+(use-package doom-themes
+  :demand t
+  :ensure t
+  :custom
+  (doom-themes-enable-bold nil)
+  :config
+  (load-theme 'doom-one t)
+  (with-eval-after-load 'erc-goodies
+    (set-face-attribute 'erc-bold-face nil :bold nil))
+  (with-eval-after-load 'flycheck
+    (set-face-attribute 'flycheck-error nil :underline `(:color ,(doom-color 'error) :style line))
+    (set-face-attribute 'flycheck-info nil :underline `(:color ,(doom-color 'highlight) :style line))
+    (set-face-attribute 'flycheck-warning nil :underline `(:color ,(doom-color 'warning) :style line)))
+  (with-eval-after-load 'isearch
+    (set-face-attribute 'isearch nil :background (doom-color 'blue) :foreground (doom-color 'dark-blue))
+    (set-face-attribute 'lazy-highlight nil :foreground (doom-color 'blue)))
+  (with-eval-after-load 'faces
+    (set-face-attribute 'header-line nil :box `(:color ,(doom-color 'modeline-bg) :line-width 7))
+    (set-face-attribute 'help-argument-name nil :foreground (doom-color 'yellow))
+    (set-face-attribute 'variable-pitch nil :family 'unspecified))
+  (with-eval-after-load 'font-lock
+    (set-face-attribute 'font-lock-doc-face nil :italic t))
+  (with-eval-after-load 'markdown
+    (set-face-attribute 'markdown-table-face nil :height me/font-size-small))
+  (with-eval-after-load 'outline
+    (set-face-attribute 'outline-1 nil :background 'unspecified))
+  (with-eval-after-load 'magit-diff
+    (set-face-attribute 'magit-diff-added nil :background 'unspecified)
+    (set-face-attribute 'magit-diff-hunk-region nil :inherit 'region)
+    (set-face-attribute 'magit-diff-removed nil :background 'unspecified))
+  (with-eval-after-load 'swiper
+    (set-face-attribute 'swiper-match-face-1 nil :background (doom-color 'bg-alt))))
+#+END_SRC
+
+** Languages
+*** Org
+#+BEGIN_SRC emacs-lisp
+(use-package org
+  :ensure t
+  :preface
+  :bind
+  (:map org-mode-map
+        ("<C-return>" . nil)
+        ("<C-S-down>" . nil)
+        ("<C-S-up>" . nil)
+        ("<M-S-down>" . nil)
+        ("<M-S-up>" . nil))
+  :custom
+  (org-descriptive-links nil)
+  (org-edit-src-content-indentation 0)
+  (org-edit-src-persistent-message nil)
+  (org-fontify-done-headline t)
+  (org-fontify-quote-and-verse-blocks t)
+  (org-src-window-setup 'current-window)
+  (org-startup-folded nil)
+  (org-startup-truncated nil)
+  (org-support-shift-select 'always))
+#+END_SRC
+** Editor
+*** Ivy
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy
+    :ensure t
+    :hook
+    (after-init . ivy-mode)
+    :bind
+    (:map ivy-minibuffer-map
+	  ("C-<down>" . ivy-next-line-and-call)
+	  ("C-<up>" . ivy-previous-line-and-call))
+    :custom
+    (ivy-count-format "")
+    (ivy-display-style nil)
+    (ivy-fixed-height-minibuffer t)
+    (ivy-height 20)
+    (ivy-initial-inputs-alist nil)
+    (ivy-re-builders-alist '((t . ivy--regex-plus)))
+    (ivy-format-functions-alist '((t . ivy-format-function-line))))
+#+END_SRC
+*** Counsel
+#+BEGIN_SRC emacs-lisp
+(use-package counsel
+  :after ivy
+  :config
+  (counsel-mode 1)
+  (setq-default ivy-initial-inputs-alist nil))
+(use-package counsel-projectile
+  :after ivy
+  :config
+  (counsel-projectile-mode 1)
+  (setq-default ivy-initial-inputs-alist nil))
+#+END_SRC
+
+*** Swiper
+#+BEGIN_SRC emacs-lisp
+(use-package swiper
+  :preface
+  (defun me/swiper ()
+    "`swiper' with string returned by `ivy-thing-at-point' as initial input."
+    (interactive)
+    (swiper (ivy-thing-at-point)))
+  :bind ("C-s" . me/swiper)
+  :custom (swiper-goto-start-of-match t))
+#+END_SRC
+*** Magit
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :bind
+  (:map magit-hunk-section-map
+        ("RET" . magit-diff-visit-file-other-window)
+        ([return] . magit-diff-visit-file-other-window))
+  :custom
+  (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
+  (magit-diff-highlight-hunk-body nil)
+  (magit-diff-highlight-hunk-region-functions
+   '(magit-diff-highlight-hunk-region-dim-outside magit-diff-highlight-hunk-region-using-face))
+  (magit-popup-display-buffer-action '((display-buffer-same-window)))
+  (magit-refs-show-commit-count 'all)
+  (magit-section-show-child-count t)
+  :config
+  (remove-hook 'magit-section-highlight-hook #'magit-section-highlight))
+#+END_SRC
+*** Agressive Indent
+#+BEGIN_SRC emacs-lisp
+(use-package aggressive-indent
+  :preface
+  (defun me/aggressive-indent-mode-off ()
+    (aggressive-indent-mode 0))
+  :hook
+  ((css-mode . aggressive-indent-mode)
+   (emacs-lisp-mode . aggressive-indent-mode)
+   (js-mode . aggressive-indent-mode)
+   (lisp-mode . aggressive-indent-mode)
+   (sgml-mode . aggressive-indent-mode))
+  :custom
+  (aggressive-indent-comments-too t)
+  :config
+  (add-to-list 'aggressive-indent-protected-commands 'comment-dwim))
+#+END_SRC
+*** Projectile
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :hook
+  (after-init . projectile-global-mode)
+  :init
+  (setq-default
+   projectile-cache-file (expand-file-name ".projectile-cache" user-emacs-directory)
+   projectile-known-projects-file (expand-file-name ".projectile-bookmarks" user-emacs-directory))
+  :custom
+  (projectile-enable-caching t))
+#+END_SRC
+*** Smartparens
+#+BEGIN_SRC emacs-lisp
+(use-package smartparens
+  :bind
+  (("M-<backspace>" . sp-unwrap-sexp)
+   ("M-<left>" . sp-forward-barf-sexp)
+   ("M-<right>" . sp-forward-slurp-sexp)
+   ("M-S-<left>" . sp-backward-slurp-sexp)
+   ("M-S-<right>" . sp-backward-barf-sexp))
+  :hook
+  (after-init . smartparens-global-mode)
+  :custom
+  (sp-highlight-pair-overlay nil)
+  (sp-highlight-wrap-overlay nil)
+  (sp-highlight-wrap-tag-overlay nil)
+  :config
+  (show-paren-mode 0)
+  (require 'smartparens-config))
+#+END_SRC
+

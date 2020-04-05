@@ -14,25 +14,44 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+(let ((gc-cons-threshold most-positive-fixnum))
 
-;; Package independent
-(setq debug-on-error t
-      debug-on-signal nil
-      debug-on-quit nil
-      inhibit-startup-screen t
-      inhibit-startup-echo-area-message "Hello GGANLEY")
+  ;; Set repositories
+  (require 'package)
+  (setq-default
+   load-prefer-newer t
+   package-enable-at-startup nil)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+  (package-initialize)
 
-(set-default-coding-systems 'utf-8)
+  ;; Install dependencies
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package t))
+  (setq-default
+   use-package-always-defer t
+   use-package-always-ensure t)
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  ;; Use latest Org
+  (use-package org :ensure org-plus-contrib)
 
-(defun get-fullpath (@file-relative-path)
-  (concat (file-name-directory (or load-file-name buffer-file-name)) @file-relative-path))
+  ;; Tangle configuration
+  (org-babel-load-file (expand-file-name "dotemacs.org" user-emacs-directory))
+  (garbage-collect))
 
-
-(when (fboundp 'get-fullpath)
-    (require 'my-package (get-fullpath "my/package.el"))
-    (require 'my-editor (get-fullpath "my/editor.el")))
-
-(provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(doom-themes-enable-bold nil)
+ '(package-selected-packages
+   '(aggressive-indent counsel-projectile org-plus-contrib which-key use-package-ensure-system-package smex smartparens projectile powerline neotree magithub git-gutter-fringe doom-themes doom-modeline diminish darcula-theme counsel avy)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
