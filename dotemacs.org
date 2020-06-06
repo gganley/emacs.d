@@ -1,3 +1,4 @@
+* Emacs
 #+BEGIN_SRC emacs-lisp
 (when window-system
   (blink-cursor-mode 0) ; Disable the cursor blinking
@@ -38,67 +39,121 @@
 (put 'downcase-region 'disabled nil)              ; Enable downcase-region
 (put 'upcase-region 'disabled nil)                ; Enable upcase-region
 (set-default-coding-systems 'utf-8)               ; Default to utf-8 encoding
-#+END_SRC
-** Enable fullscreen
-#+BEGIN_SRC emacs-lisp
-(if (eq window-system 'ns)
-    (toggle-frame-maximized)
-  (toggle-frame-fullscreen))
+(add-to-list 'default-frame-alist '(font . "Fira Code-8"))
+(dotimes (n 10)
+  (global-unset-key (kbd (format "C-%d" n)))
+  (global-unset-key (kbd (format "M-%d" n))))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'focus-out-hook #'garbage-collect)
 #+END_SRC
 
-** Theme
+* Use Package
+- After loading, you can use M-x describe-personal-keybindings to see all such keybindings you've set throughout your .emacs file.
+- remember to restrict :init code to only what would succeed either way.
+- When you use the :commands keyword, it creates autoloads for those commands and defers loading of the module until they are used
+- key binding syntax follows kbd style [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Init-Rebinding.html]]
+- Furthermore, remapping commands with :bind and bind-key works as expected, because when the binding is a vector, it is passed straight to define-key
+- 
+
+
+#+BEGIN_SRC emacs-lisp
+;; Package `use-package' provides a handy macro by the same name which
+;; is essentially a wrapper around `with-eval-after-load' with a lot
+;; of handy syntactic sugar and useful features.
+(straight-use-package 'use-package)
+
+;; When configuring a feature with `use-package', also tell
+;; straight.el to install a package of the same name, unless otherwise
+;; specified using the `:straight' keyword.
+(setq straight-use-package-by-default t)
+
+;; Tell `use-package' to always load features lazily unless told
+;; otherwise. It's nicer to have this kind of thing be deterministic:
+;; if `:demand' is present, the loading is eager; otherwise, the
+;; loading is lazy. See
+;; https://github.com/jwiegley/use-package#notes-about-lazy-loading.
+(setq use-package-always-defer t)
+#+END_SRC
+
+** No Littering
+
+#+BEGIN_SRC emacs-lisp
+(use-package no-littering
+  :straight t
+  :ensure t
+  :requires recentf
+  :config
+  (setq auto-save-file-name-transforms
+        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))
+        no-littering-etc-directory (expand-file-name "config/" user-emacs-directory)
+        no-littering-var-directory (expand-file-name "data/" user-emacs-directory)
+        custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (add-to-list 'recentf-exclude no-littering-var-directory)
+  (add-to-list 'recentf-exclude no-littering-etc-directory))
+#+END_SRC
+* Theme
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
+  :straight t
   :demand t
-  :ensure t
   :custom
   (doom-themes-enable-bold nil)
   :config
-  (load-theme 'doom-one t)
-  (with-eval-after-load 'erc-goodies
-    (set-face-attribute 'erc-bold-face nil :bold nil))
-  (with-eval-after-load 'flycheck
-    (set-face-attribute 'flycheck-error nil :underline `(:color ,(doom-color 'error) :style line))
-    (set-face-attribute 'flycheck-info nil :underline `(:color ,(doom-color 'highlight) :style line))
-    (set-face-attribute 'flycheck-warning nil :underline `(:color ,(doom-color 'warning) :style line)))
-  (with-eval-after-load 'isearch
-    (set-face-attribute 'isearch nil :background (doom-color 'blue) :foreground (doom-color 'dark-blue))
-    (set-face-attribute 'lazy-highlight nil :foreground (doom-color 'blue)))
-  (with-eval-after-load 'faces
-    (set-face-attribute 'header-line nil :box `(:color ,(doom-color 'modeline-bg) :line-width 7))
-    (set-face-attribute 'help-argument-name nil :foreground (doom-color 'yellow))
-    (set-face-attribute 'variable-pitch nil :family 'unspecified))
-  (with-eval-after-load 'font-lock
-    (set-face-attribute 'font-lock-doc-face nil :italic t))
-  (with-eval-after-load 'markdown
-    (set-face-attribute 'markdown-table-face nil :height me/font-size-small))
-  (with-eval-after-load 'outline
-    (set-face-attribute 'outline-1 nil :background 'unspecified))
-  (with-eval-after-load 'magit-diff
-    (set-face-attribute 'magit-diff-added nil :background 'unspecified)
-    (set-face-attribute 'magit-diff-hunk-region nil :inherit 'region)
-    (set-face-attribute 'magit-diff-removed nil :background 'unspecified))
-  (with-eval-after-load 'swiper
-    (set-face-attribute 'swiper-match-face-1 nil :background (doom-color 'bg-alt))))
+  (load-theme 'doom-one t))
 #+END_SRC
 
-** Languages
-*** Org
+* Languages
+** Rust
+#+BEGIN_SRC emacs-lisp
+(use-package rustic
+  :straight t)
+#+END_SRC
+** Go
+#+BEGIN_SRC emacs-lisp
+(use-package go-mode
+  :straight t)
+#+END_SRC
+** Typescript
+#+BEGIN_SRC emacs-lisp
+(use-package tide
+  :straight t
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)
+         (before-save . tide-format-before-save))
+  :config
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+
+  ;; formats the buffer before saving
+  (add-hook 'before-save-hook 'tide-format-before-save)
+
+  (add-hook 'typescript-mode-hook #'setup-tide-mode))
+#+END_SRC
+** JSON
+#+BEGIN_SRC emacs-lisp
+(use-package json-mode
+  :straight t)
+#+END_SRC
+** Org
 #+BEGIN_SRC emacs-lisp
 (use-package org
-  :ensure t
-  :preface
-  :bind
-  (:map org-mode-map
-        ("<C-return>" . nil)
-        ("<C-S-down>" . nil)
-        ("<C-S-up>" . nil)
-        ("<M-S-down>" . nil)
-        ("<M-S-up>" . nil))
+  :straight t
+  :bind (("C-c c" . org-capture))
   :custom
   (org-descriptive-links nil)
   (org-edit-src-content-indentation 0)
@@ -108,13 +163,19 @@
   (org-src-window-setup 'current-window)
   (org-startup-folded nil)
   (org-startup-truncated nil)
-  (org-support-shift-select 'always))
+  (org-support-shift-select 'always)
+  :config
+  (setq 
+   org-clock-persist 'history
+   org-default-notes-file (concat org-directory "/notes.org")
+   org-hide-leading-stars t)
+  (org-clock-persistence-insinuate))
 #+END_SRC
-** Editor
-*** Ivy
+* Editor
+** Ivy
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
-    :ensure t
+    :straight t
     :hook
     (after-init . ivy-mode)
     :bind
@@ -130,9 +191,10 @@
     (ivy-re-builders-alist '((t . ivy--regex-plus)))
     (ivy-format-functions-alist '((t . ivy-format-function-line))))
 #+END_SRC
-*** Counsel
+** Counsel
 #+BEGIN_SRC emacs-lisp
 (use-package counsel
+  :straight t
   :after ivy
   :config
   (counsel-mode 1)
@@ -144,9 +206,10 @@
   (setq-default ivy-initial-inputs-alist nil))
 #+END_SRC
 
-*** Swiper
+** Swiper
 #+BEGIN_SRC emacs-lisp
 (use-package swiper
+  :straight t
   :preface
   (defun me/swiper ()
     "`swiper' with string returned by `ivy-thing-at-point' as initial input."
@@ -155,9 +218,10 @@
   :bind ("C-s" . me/swiper)
   :custom (swiper-goto-start-of-match t))
 #+END_SRC
-*** Magit
+** Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
+  :straight t
   :bind
   (:map magit-hunk-section-map
         ("RET" . magit-diff-visit-file-other-window)
@@ -173,9 +237,10 @@
   :config
   (remove-hook 'magit-section-highlight-hook #'magit-section-highlight))
 #+END_SRC
-*** Agressive Indent
+** Agressive Indent
 #+BEGIN_SRC emacs-lisp
 (use-package aggressive-indent
+  :straight t
   :preface
   (defun me/aggressive-indent-mode-off ()
     (aggressive-indent-mode 0))
@@ -190,9 +255,10 @@
   :config
   (add-to-list 'aggressive-indent-protected-commands 'comment-dwim))
 #+END_SRC
-*** Projectile
+** Projectile
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
+  :straight t
   :hook
   (after-init . projectile-global-mode)
   :init
@@ -202,9 +268,10 @@
   :custom
   (projectile-enable-caching t))
 #+END_SRC
-*** Smartparens
+** Smartparens
 #+BEGIN_SRC emacs-lisp
 (use-package smartparens
+  :straight t
   :bind
   (("M-<backspace>" . sp-unwrap-sexp)
    ("M-<left>" . sp-forward-barf-sexp)
@@ -222,3 +289,21 @@
   (require 'smartparens-config))
 #+END_SRC
 
+** Eyebrowse
+#+BEGIN_SRC emacs-lisp
+(use-package eyebrowse
+  :straight t
+  :bind (("M-1" . eyebrowse-switch-to-window-config-1)
+         ("M-2" . eyebrowse-switch-to-window-config-2)
+         ("M-3" . eyebrowse-switch-to-window-config-3)
+         ("M-4" . eyebrowse-switch-to-window-config-4))
+  :config
+  (eyebrowse-mode t)
+  (setq eyebrowse-new-workspace t))
+#+END_SRC
+** Ace Window
+#+BEGIN_SRC emacs-lisp
+(use-package ace-window
+  :straight t
+  :bind* ("M-o" . ace-window))
+#+END_SRC
