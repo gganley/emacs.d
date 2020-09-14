@@ -9,54 +9,37 @@
 
 #+BEGIN_SRC emacs-lisp
 (setq-default
- delete-by-moving-to-trash t                      ; Delete files to trash
- fill-column 120                                  ; Set width for automatic line breaks
- help-window-select t                             ; Focus new help windows when opened
- indent-tabs-mode nil                             ; Stop using tabs to indent
- inhibit-startup-screen t                         ; Disable start-up screen
- mouse-yank-at-point t                            ; Yank at point rather than pointer
- ns-use-srgb-colorspace nil                       ; Don't use sRGB colors
- recenter-positions '(5 top bottom)               ; Set re-centering positions
- scroll-conservatively most-positive-fixnum       ; Always scroll by one line
- scroll-margin 10                                 ; Add a margin when scrolling vertically
- select-enable-clipboard t                        ; Merge system's and Emacs' clipboard
- sentence-end-double-space nil                    ; End a sentence after a dot and a space
- show-help-function nil                           ; Disable help messages
- show-trailing-whitespace nil                     ; Display trailing whitespaces
- split-height-threshold nil                       ; Disable vertical window splitting
- split-width-threshold nil                        ; Disable horizontal window splitting
- tab-width 4                                      ; Set width for tabs
- uniquify-buffer-name-style 'forward              ; Uniquify buffer names
- window-combination-resize t                      ; Resize windows proportionally
- x-stretch-cursor t)                              ; Stretch cursor to the glyph width
-(cd "~/")                                         ; Move to the user directory
-(delete-selection-mode 1)                         ; Replace region when inserting text
-(fringe-mode 0)                                   ; Disable fringes
-(fset 'yes-or-no-p 'y-or-n-p)                     ; Replace yes/no prompts with y/n
-(global-subword-mode 1)                           ; Iterate through CamelCase words
-(menu-bar-mode 0)                                 ; Disable the menu bar
-(mouse-avoidance-mode 'banish)                    ; Avoid collision of mouse with point
-(put 'downcase-region 'disabled nil)              ; Enable downcase-region
-(put 'upcase-region 'disabled nil)                ; Enable upcase-region
-(set-default-coding-systems 'utf-8)               ; Default to utf-8 encoding
-(add-to-list 'default-frame-alist '(font . "Fira Code-8"))
+ cursor-in-non-selected-windows t     ; Hide the cursor in inactive windows
+ inhibit-startup-screen t             ; Disable start-up screen
+ initial-scratch-message ""           ; Empty the initial *scratch* buffer
+ load-prefer-newer t                  ; Prefers the newest version of a file
+ select-enable-clipboard t            ; Merge system's and Emacs' clipboard
+ use-package-always-ensure t          ; Avoid the :ensure keyword for each package
+ user-full-name "Gregory Ganley"      ; Set the full name of the current user
+ user-mail-address "greg@ganley.dev") ; Set the email address of the current user
+
+(cd "~/")                           ; Move to the user directory
+(delete-selection-mode 1)           ; Replace region when inserting text
+(fringe-mode 0)                     ; Disable fringes
+(fset 'yes-or-no-p 'y-or-n-p)       ; Replace yes/no prompts with y/n
+(set-default-coding-systems 'utf-8) ; Default to utf-8 encoding
+(add-to-list 'default-frame-alist '(font . "Fira Code-12"))
 (dotimes (n 10)
   (global-unset-key (kbd (format "C-%d" n)))
   (global-unset-key (kbd (format "M-%d" n))))
+(when (eq system-type 'darwin)
+  (menu-bar-mode 1)
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'super))
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-(add-hook 'focus-out-hook #'garbage-collect)
-#+END_SRC
-
-* Use Package
+* Package Management
+** Use Package
 - After loading, you can use M-x describe-personal-keybindings to see all such keybindings you've set throughout your .emacs file.
 - remember to restrict :init code to only what would succeed either way.
 - When you use the :commands keyword, it creates autoloads for those commands and defers loading of the module until they are used
 - key binding syntax follows kbd style [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Init-Rebinding.html]]
 - Furthermore, remapping commands with :bind and bind-key works as expected, because when the binding is a vector, it is passed straight to define-key
-- 
-
 
 #+BEGIN_SRC emacs-lisp
 ;; Package `use-package' provides a handy macro by the same name which
@@ -69,30 +52,25 @@
 ;; specified using the `:straight' keyword.
 (setq straight-use-package-by-default t)
 
-;; Tell `use-package' to always load features lazily unless told
-;; otherwise. It's nicer to have this kind of thing be deterministic:
-;; if `:demand' is present, the loading is eager; otherwise, the
-;; loading is lazy. See
-;; https://github.com/jwiegley/use-package#notes-about-lazy-loading.
-(setq use-package-always-defer t)
+(setq use-package-always-defer nil)
 #+END_SRC
 
 ** No Littering
-
 #+BEGIN_SRC emacs-lisp
+(use-package recentf :straight t :demand t)
 (use-package no-littering
-  :straight t
-  :ensure t
-  :requires recentf
-  :config
-  (setq auto-save-file-name-transforms
-        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))
-        no-littering-etc-directory (expand-file-name "config/" user-emacs-directory)
-        no-littering-var-directory (expand-file-name "data/" user-emacs-directory)
-        custom-file (expand-file-name "custom.el" user-emacs-directory))
-  (add-to-list 'recentf-exclude no-littering-var-directory)
-  (add-to-list 'recentf-exclude no-littering-etc-directory))
+   :straight t
+   :demand t
+   :config
+   (setq auto-save-file-name-transforms
+         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))
+         no-littering-etc-directory (expand-file-name "config/" user-emacs-directory)
+         no-littering-var-directory (expand-file-name "data/" user-emacs-directory)
+         custom-file (expand-file-name "custom.el" user-emacs-directory))
+   (add-to-list 'recentf-exclude no-littering-var-directory)
+   (add-to-list 'recentf-exclude no-littering-etc-directory))
 #+END_SRC
+** 
 * Theme
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
@@ -101,59 +79,34 @@
   :custom
   (doom-themes-enable-bold nil)
   :config
-  (load-theme 'doom-one t))
+  (load-theme 'doom-nord t))
+
+;; (use-package doom-modeline
+;;   :defer 0.1
+;;   :config (doom-modeline-mode))
+
+;; (use-package all-the-icons
+;;   :if (display-graphic-p)
+;;   :config (unless (find-font (font-spec :name "all-the-icons"))
+;; 	    (all-the-icons-install-fonts t)))
+
 #+END_SRC
 
 * Languages
-** Rust
-#+BEGIN_SRC emacs-lisp
-(use-package rustic
-  :straight t)
-#+END_SRC
-** Go
-#+BEGIN_SRC emacs-lisp
-(use-package go-mode
-  :straight t)
-#+END_SRC
-** Typescript
-#+BEGIN_SRC emacs-lisp
-(use-package tide
-  :straight t
-  :after (typescript-mode company flycheck)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save))
-  :config
-  (defun setup-tide-mode ()
-    (interactive)
-    (tide-setup)
-    (flycheck-mode +1)
-    (setq flycheck-check-syntax-automatically '(save mode-enabled))
-    (eldoc-mode +1)
-    (tide-hl-identifier-mode +1)
-    ;; company is an optional dependency. You have to
-    ;; install it separately via package-install
-    ;; `M-x package-install [ret] company`
-    (company-mode +1))
-
-  ;; aligns annotation to the right hand side
-  (setq company-tooltip-align-annotations t)
-
-  ;; formats the buffer before saving
-  (add-hook 'before-save-hook 'tide-format-before-save)
-
-  (add-hook 'typescript-mode-hook #'setup-tide-mode))
-#+END_SRC
-** JSON
-#+BEGIN_SRC emacs-lisp
-(use-package json-mode
-  :straight t)
-#+END_SRC
 ** Org
 #+BEGIN_SRC emacs-lisp
+(straight-use-package '(org :local-repo nil))
+
+(defun gg/goto-and-focus (&optional arg)
+  (interactive "P")
+  (org-clock-goto)
+  (org-tree-to-indirect-buffer))
+
 (use-package org
   :straight t
-  :bind (("C-c c" . org-capture))
+  :demand t
+  :bind (("C-c c" . org-capture)
+         ("<f11>" . gg/goto-and-focus))
   :custom
   (org-descriptive-links nil)
   (org-edit-src-content-indentation 0)
@@ -166,144 +119,44 @@
   (org-support-shift-select 'always)
   :config
   (setq 
-   org-clock-persist 'history
-   org-default-notes-file (concat org-directory "/notes.org")
-   org-hide-leading-stars t)
-  (org-clock-persistence-insinuate))
+   org-clock-persist t
+   org-default-notes-file (concat org-directory "/todo.org")
+   org-hide-leading-stars t
+   org-clock-in-resume t
+   org-clock-mode-line-total 'today
+   org-clock-out-remove-zero-time-clocks t
+   org-clock-out-when-done t
+   org-clock-history-length 23
+   org-clock-report-include-clocking-task t
+   org-clock-auto-clock-resolution (quote when-no-clock-is-running)
+   org-clock-persist-query-resume nil
+   org-clock-idle-time 15
+   org-goto-interface 'outline-path-completion
+   org-outline-path-complete-in-steps nil)
+  (org-clock-persistence-insinuate)
+  (add-hook 'org-mode-hook #'visual-line-mode))
 #+END_SRC
 * Editor
-** Ivy
-#+BEGIN_SRC emacs-lisp
-  (use-package ivy
-    :straight t
-    :hook
-    (after-init . ivy-mode)
-    :bind
-    (:map ivy-minibuffer-map
-	  ("C-<down>" . ivy-next-line-and-call)
-	  ("C-<up>" . ivy-previous-line-and-call))
-    :custom
-    (ivy-count-format "")
-    (ivy-display-style nil)
-    (ivy-fixed-height-minibuffer t)
-    (ivy-height 20)
-    (ivy-initial-inputs-alist nil)
-    (ivy-re-builders-alist '((t . ivy--regex-plus)))
-    (ivy-format-functions-alist '((t . ivy-format-function-line))))
-#+END_SRC
-** Counsel
-#+BEGIN_SRC emacs-lisp
-(use-package counsel
-  :straight t
-  :after ivy
-  :config
-  (counsel-mode 1)
-  (setq-default ivy-initial-inputs-alist nil))
-(use-package counsel-projectile
-  :after ivy
-  :config
-  (counsel-projectile-mode 1)
-  (setq-default ivy-initial-inputs-alist nil))
-#+END_SRC
-
-** Swiper
-#+BEGIN_SRC emacs-lisp
-(use-package swiper
-  :straight t
-  :preface
-  (defun me/swiper ()
-    "`swiper' with string returned by `ivy-thing-at-point' as initial input."
-    (interactive)
-    (swiper (ivy-thing-at-point)))
-  :bind ("C-s" . me/swiper)
-  :custom (swiper-goto-start-of-match t))
-#+END_SRC
 ** Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
+  :straight t)
+#+END_SRC
+** Helpful
+#+BEGIN_SRC emacs-lisp
+(use-package helpful
   :straight t
-  :bind
-  (:map magit-hunk-section-map
-        ("RET" . magit-diff-visit-file-other-window)
-        ([return] . magit-diff-visit-file-other-window))
-  :custom
-  (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
-  (magit-diff-highlight-hunk-body nil)
-  (magit-diff-highlight-hunk-region-functions
-   '(magit-diff-highlight-hunk-region-dim-outside magit-diff-highlight-hunk-region-using-face))
-  (magit-popup-display-buffer-action '((display-buffer-same-window)))
-  (magit-refs-show-commit-count 'all)
-  (magit-section-show-child-count t)
+  :demand t
+  :bind (("C-h f" . helpful-callable)
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)))
+#+END_SRC
+** Dashboard
+#+BEGIN_SRC emacs-lisp
+(use-package dashboard
+  :ensure t
   :config
-  (remove-hook 'magit-section-highlight-hook #'magit-section-highlight))
-#+END_SRC
-** Agressive Indent
-#+BEGIN_SRC emacs-lisp
-(use-package aggressive-indent
-  :straight t
-  :preface
-  (defun me/aggressive-indent-mode-off ()
-    (aggressive-indent-mode 0))
-  :hook
-  ((css-mode . aggressive-indent-mode)
-   (emacs-lisp-mode . aggressive-indent-mode)
-   (js-mode . aggressive-indent-mode)
-   (lisp-mode . aggressive-indent-mode)
-   (sgml-mode . aggressive-indent-mode))
-  :custom
-  (aggressive-indent-comments-too t)
-  :config
-  (add-to-list 'aggressive-indent-protected-commands 'comment-dwim))
-#+END_SRC
-** Projectile
-#+BEGIN_SRC emacs-lisp
-(use-package projectile
-  :straight t
-  :hook
-  (after-init . projectile-global-mode)
-  :init
-  (setq-default
-   projectile-cache-file (expand-file-name ".projectile-cache" user-emacs-directory)
-   projectile-known-projects-file (expand-file-name ".projectile-bookmarks" user-emacs-directory))
-  :custom
-  (projectile-enable-caching t))
-#+END_SRC
-** Smartparens
-#+BEGIN_SRC emacs-lisp
-(use-package smartparens
-  :straight t
-  :bind
-  (("M-<backspace>" . sp-unwrap-sexp)
-   ("M-<left>" . sp-forward-barf-sexp)
-   ("M-<right>" . sp-forward-slurp-sexp)
-   ("M-S-<left>" . sp-backward-slurp-sexp)
-   ("M-S-<right>" . sp-backward-barf-sexp))
-  :hook
-  (after-init . smartparens-global-mode)
-  :custom
-  (sp-highlight-pair-overlay nil)
-  (sp-highlight-wrap-overlay nil)
-  (sp-highlight-wrap-tag-overlay nil)
-  :config
-  (show-paren-mode 0)
-  (require 'smartparens-config))
-#+END_SRC
-
-** Eyebrowse
-#+BEGIN_SRC emacs-lisp
-(use-package eyebrowse
-  :straight t
-  :bind (("M-1" . eyebrowse-switch-to-window-config-1)
-         ("M-2" . eyebrowse-switch-to-window-config-2)
-         ("M-3" . eyebrowse-switch-to-window-config-3)
-         ("M-4" . eyebrowse-switch-to-window-config-4))
-  :config
-  (eyebrowse-mode t)
-  (setq eyebrowse-new-workspace t))
-#+END_SRC
-** Ace Window
-#+BEGIN_SRC emacs-lisp
-(use-package ace-window
-  :straight t
-  :bind* ("M-o" . ace-window))
+  (dashboard-setup-startup-hook)
+  (setq
+   dashboard-startup-banner nil))
 #+END_SRC

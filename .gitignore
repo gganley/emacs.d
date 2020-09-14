@@ -30,3 +30,6 @@ magithub/
 dotemacs.el
 history
 transient/
+var/
+straight/
+org-clock-save.el

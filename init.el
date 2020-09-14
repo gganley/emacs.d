@@ -32,7 +32,8 @@
   (setq-default
    use-package-always-defer t
    use-package-always-ensure t)
-  
+
+  ;; Bootstrap straight
   (defvar bootstrap-version)
   (let ((bootstrap-file
          (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -45,6 +46,7 @@
         (goto-char (point-max))
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
+
   
   ;; Use latest Org
   (use-package org :ensure org-plus-contrib)
@@ -73,3 +75,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'narrow-to-region 'disabled nil)
