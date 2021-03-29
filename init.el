@@ -15,8 +15,9 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (let ((gc-cons-threshold most-positive-fixnum))
-
-  ;; Set repositories
+  (require 'server)
+  (if (not (server-running-p)) (server-start))
+    ;; Set repositories
   (require 'package)
   (setq-default
    load-prefer-newer t
@@ -61,18 +62,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-backends
+   '(company-bbdb company-semantic company-cmake company-capf company-clang company-files
+		  (company-dabbrev-code company-gtags company-etags company-keywords)
+		  company-oddmuse company-dabbrev company-elisp))
  '(custom-safe-themes
-   '("99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" default))
- '(doom-themes-enable-bold nil)
- '(org-clock-mode-line-total 'today)
- '(org-export-backends '(ascii html icalendar latex md odt))
- '(package-selected-packages
-   '(aggressive-indent counsel-projectile org-plus-contrib which-key use-package-ensure-system-package smex smartparens projectile powerline neotree magithub git-gutter-fringe doom-themes doom-modeline diminish darcula-theme counsel avy))
- '(ring-bell-function 'ignore))
+   '("f4876796ef5ee9c82b125a096a590c9891cec31320569fc6ff602ff99ed73dca" "93ed23c504b202cf96ee591138b0012c295338f38046a1f3c14522d4a64d7308" default))
+ '(org-agenda-sorting-strategy
+   '((agenda habit-down time-up priority-down category-keep)
+     (todo priority-down category-keep time-up timestamp-down deadline-down)
+     (tags priority-down category-keep)
+     (search category-keep))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(put 'narrow-to-region 'disabled nil)

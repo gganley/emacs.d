@@ -1,36 +1,39 @@
 * Emacs
 #+BEGIN_SRC emacs-lisp
-(when window-system
-  (blink-cursor-mode 0) ; Disable the cursor blinking
-  (scroll-bar-mode 0)   ; Disable the scroll bar
-  (tool-bar-mode 0)     ; Disable the tool bar
-  (tooltip-mode 0))     ; Disable the tooltips
+  ;; (setq
+  ;;   blink-cursor-mode nil ; Disable the cursor blinking
+  ;;   tool-bar-mode nil     ; Disable the tool bar
+  ;;   tooltip-mode nil
+  ;;   scroll-bar-mode nil)     ; Disable the tooltips
+  ;; (toggle-tool-bar-mode-from-frame)
+  ;; (set-scroll-bar-mode nil)
+(toggle-tool-bar-mode-from-frame 0)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(setq-default
- cursor-in-non-selected-windows t     ; Hide the cursor in inactive windows
- inhibit-startup-screen t             ; Disable start-up screen
- initial-scratch-message ""           ; Empty the initial *scratch* buffer
- load-prefer-newer t                  ; Prefers the newest version of a file
- select-enable-clipboard t            ; Merge system's and Emacs' clipboard
- use-package-always-ensure t          ; Avoid the :ensure keyword for each package
- user-full-name "Gregory Ganley"      ; Set the full name of the current user
- user-mail-address "greg@ganley.dev") ; Set the email address of the current user
+  (setq-default
+   cursor-in-non-selected-windows t     ; Hide the cursor in inactive windows
+   inhibit-startup-screen t             ; Disable start-up screen
+   initial-scratch-message ""           ; Empty the initial *scratch* buffer
+   load-prefer-newer t                  ; Prefers the newest version of a file
+   select-enable-clipboard t            ; Merge system's and Emacs' clipboard
+   use-package-always-ensure t          ; Avoid the :ensure keyword for each package
+   user-full-name "Gregory Ganley"      ; Set the full name of the current user
+   user-mail-address "greg@ganley.dev") ; Set the email address of the current user
 
-(cd "~/")                           ; Move to the user directory
-(delete-selection-mode 1)           ; Replace region when inserting text
-(fringe-mode 0)                     ; Disable fringes
-(fset 'yes-or-no-p 'y-or-n-p)       ; Replace yes/no prompts with y/n
-(set-default-coding-systems 'utf-8) ; Default to utf-8 encoding
-(add-to-list 'default-frame-alist '(font . "Fira Code-12"))
-(dotimes (n 10)
-  (global-unset-key (kbd (format "C-%d" n)))
-  (global-unset-key (kbd (format "M-%d" n))))
-(when (eq system-type 'darwin)
-  (menu-bar-mode 1)
-  (setq mac-command-modifier 'meta
-        mac-option-modifier 'super))
+  (cd "~/")                           ; Move to the user directory
+  (delete-selection-mode 1)           ; Replace region when inserting text
+  (fringe-mode 0)                     ; Disable fringes
+  (fset 'yes-or-no-p 'y-or-n-p)       ; Replace yes/no prompts with y/n
+  (set-default-coding-systems 'utf-8) ; Default to utf-8 encoding
+  (add-to-list 'default-frame-alist '(font . "Fira Code-10"))
+  ;; (dotimes (n 10)
+  ;;   (global-unset-key (kbd (format "C-%d" n)))
+  ;;   (global-unset-key (kbd (format "M-%d" n))))
+  (when (eq system-type 'darwin)
+    (menu-bar-mode 1)
+    (setq mac-command-modifier 'meta
+	  mac-option-modifier 'super))
 #+END_SRC
 
 * Package Management
@@ -55,22 +58,6 @@
 (setq use-package-always-defer nil)
 #+END_SRC
 
-** No Littering
-#+BEGIN_SRC emacs-lisp
-(use-package recentf :straight t :demand t)
-(use-package no-littering
-   :straight t
-   :demand t
-   :config
-   (setq auto-save-file-name-transforms
-         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))
-         no-littering-etc-directory (expand-file-name "config/" user-emacs-directory)
-         no-littering-var-directory (expand-file-name "data/" user-emacs-directory)
-         custom-file (expand-file-name "custom.el" user-emacs-directory))
-   (add-to-list 'recentf-exclude no-littering-var-directory)
-   (add-to-list 'recentf-exclude no-littering-etc-directory))
-#+END_SRC
-** 
 * Theme
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
@@ -81,82 +68,261 @@
   :config
   (load-theme 'doom-nord t))
 
-;; (use-package doom-modeline
-;;   :defer 0.1
-;;   :config (doom-modeline-mode))
+(use-package doom-modeline
+  :init (doom-modeline-mode 1))
 
-;; (use-package all-the-icons
-;;   :if (display-graphic-p)
-;;   :config (unless (find-font (font-spec :name "all-the-icons"))
-;; 	    (all-the-icons-install-fonts t)))
+(use-package all-the-icons
+  :if (display-graphic-p)
+  :config (unless (find-font (font-spec :name "all-the-icons"))
+	    (all-the-icons-install-fonts t)))
 
 #+END_SRC
 
 * Languages
 ** Org
+*** Org Functions
 #+BEGIN_SRC emacs-lisp
-(straight-use-package '(org :local-repo nil))
+  (straight-use-package '(org :local-repo nil))
 
-(defun gg/goto-and-focus (&optional arg)
-  (interactive "P")
-  (org-clock-goto)
-  (org-tree-to-indirect-buffer))
+  (defun gg/goto-and-focus (&optional arg)
+    (interactive "P")
+    (org-clock-goto)
+    (org-tree-to-indirect-buffer))
+    (defun gg/org-agenda-mode-hook ()
+      (interactive)
+      (setq truncate-lines 't))
+    (defun gg/org-agenda-prefix ()
+      (let ((scheduled (org-get-scheduled-time (point)))
+	    (deadline  (org-get-deadline-time (point))))
+	(cond (scheduled (format-time-string "s %Y-%m-%d" scheduled))
+	      (deadline (format-time-string "d %Y-%m-%d" deadline))
+	      (t "------------"))))
+    (defun +org/opened-buffer-files ()
+      "Return the list of files currently opened in emacs"
+      (delq nil
+	    (mapcar (lambda (x)
+		      (if (and (buffer-file-name x)
+			       (string-match "\\.org$"
+					     (buffer-file-name x)))
+			  (buffer-file-name x)))
+		    (buffer-list))))
+    (defun gg/org-roam-create-note-from-headline ()
+      "Create an Org-roam note from the current headline and jump to it.
 
-(use-package org
-  :straight t
-  :demand t
-  :bind (("C-c c" . org-capture)
-         ("<f11>" . gg/goto-and-focus))
-  :custom
-  (org-descriptive-links nil)
-  (org-edit-src-content-indentation 0)
-  (org-edit-src-persistent-message nil)
-  (org-fontify-done-headline t)
-  (org-fontify-quote-and-verse-blocks t)
-  (org-src-window-setup 'current-window)
-  (org-startup-folded nil)
-  (org-startup-truncated nil)
-  (org-support-shift-select 'always)
-  :config
-  (setq 
-   org-clock-persist t
-   org-default-notes-file (concat org-directory "/todo.org")
-   org-hide-leading-stars t
-   org-clock-in-resume t
-   org-clock-mode-line-total 'today
-   org-clock-out-remove-zero-time-clocks t
-   org-clock-out-when-done t
-   org-clock-history-length 23
-   org-clock-report-include-clocking-task t
-   org-clock-auto-clock-resolution (quote when-no-clock-is-running)
-   org-clock-persist-query-resume nil
-   org-clock-idle-time 15
-   org-goto-interface 'outline-path-completion
-   org-outline-path-complete-in-steps nil)
-  (org-clock-persistence-insinuate)
-  (add-hook 'org-mode-hook #'visual-line-mode))
+    Normally, insert the headline’s title using the ’#title:’ file-level property
+    and delete the Org-mode headline. However, if the current headline has a
+    Org-mode properties drawer already, keep the headline and don’t insert
+    ‘#+title:'. Org-roam can extract the title from both kinds of notes, but using
+    ‘#+title:’ is a bit cleaner for a short note, which Org-roam encourages."
+      (interactive)
+      (let ((title (nth 4 (org-heading-components)))
+	    (has-properties (org-get-property-block)))
+	(org-cut-subtree)
+	(org-roam-find-file title nil nil 'no-confirm)
+	(org-paste-subtree)
+	(unless has-properties
+	  (kill-line)
+	  (while (outline-next-heading)
+	    (org-promote)))
+	(goto-char (point-min))
+	(when has-properties
+	  (kill-line)
+	  (kill-line))))
 #+END_SRC
+*** Org proper
+#+BEGIN_SRC emacs-lisp
+  (use-package org
+    :straight t
+    :demand t
+    :bind (("<f11>" . gg/goto-and-focus))
+    :custom
+    ;; (org-descriptive-links nil)
+    ;; (org-edit-src-content-indentation 0)
+    ;; (org-edit-src-persistent-message nil)
+    ;; (org-fontify-done-headline t)
+    ;; (org-fontify-quote-and-verse-blocks t)
+    ;; (org-src-window-setup 'current-window)
+    (org-startup-folded nil)
+    ;; (org-startup-truncated nil)
+    ;; (org-support-shift-select 'always)
+    :config
+    (org-clock-persistence-insinuate)
+    (add-hook 'org-mode-hook #'visual-line-mode)
+    (setq 
+     org-clock-persist t
+     org-directory "~/org-roam"
+     org-default-notes-file (concat org-directory "/todo.org")
+     org-hide-leading-stars t
+     org-clock-in-resume t
+     org-clock-mode-line-total 'today
+     ;; org-clock-out-remove-zero-time-clocks t
+     ;; org-clock-out-when-done t
+     ;; org-clock-history-length 23
+     ;; org-clock-report-include-clocking-task t
+     ;; org-clock-auto-clock-resolution (quote when-no-clock-is-running)
+     ;; org-clock-persist-query-resume nil
+     ;; org-clock-idle-time 15
+     org-goto-interface 'outline-path-completion
+     org-outline-path-complete-in-steps nil
+     org-refile-targets '((+org/opened-buffer-files :maxlevel . 9))
+     org-refile-use-outline-path 'file
+     ;; org-descriptive-links nil
+     org-refile-allow-creating-parent-nodes 'confirm
+     ;; org-enforce-todo-dependencies 't
+     ;; org-capture-templates
+     ;; '(("t" "Todo" entry (file+headline "~/org/todo.org" "Tasks") "* TODO %?\n  %i\n  %a")
+     ;;   ("c" "Current" plain (clock) "%?\n %i\n"))
+     ;; org-link-abbrev-alist
+     ;; '(("issue" . "https://gitlab.com/backendbenchmarking/digital-advice/-/issues/%s")
+     ;;   ("mr" . "https://gitlab.com/backendbenchmarking/digital-advice/-/merge_requests/%s"))
+     org-agenda-files '("~/org-roam/daily" "~/org-roam")
+     counsel-org-goto-all-outline-path-prefix 'file-name
+  )
+     :hook (org-agenda-mode . gg/org-agenda-mode-hook))
+#+END_SRC
+*** Super Agenda
+#+BEGIN_SRC emacs-lisp
+   (use-package org-super-agenda
+     :after org
+     :config
+     (org-super-agenda-mode)
+     (setq org-super-agenda-groups
+	   '((:auto-outline-path t))
+	   org-agenda-custom-commands
+	   '(("u" "Super View"
+	      ((agenda "" ((org-agenda-span 'day)
+			   (org-super-agenda-groups '((:name "Today" :deadline today :scheduled today)))))
+	       (todo "" ((org-agenda-overriding-header "Projects")
+			 (org-super-agenda-groups
+			  '((:auto-outline-path))))))))))
+#+END_SRC
+*** Org Bullets
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :after org
+    :hook (org-mode . org-bullets-mode))
+ #+END_SRC
+*** Org Roam
+#+begin_src emacs-lisp
+  (use-package org-roam
+    :straight t
+    :hook
+    (after-init . org-roam-mode)
+    :custom
+    (org-roam-db-gc-threshold most-positive-fixnum)
+    (org-roam-completion-system 'ivy)
+    (org-roam-directory "~/org-roam")
+    (org-roam-dailies-directory "daily/")
+    (org-roam-dailies-capture-templates
+	  '(("d" "default" entry
+	     #'org-roam-capture--get-point
+	     "* %?"
+	     :file-name "daily/%<%Y-%m-%d>"
+	     :head "#+title: %<%Y-%m-%d>\n\n")))
+    :bind (:map org-roam-mode-map
+		(("C-c n l" . org-roam)
+		 ("C-c n f" . org-roam-find-file)
+		 ("C-c n g" . org-roam-graph)
+		 ("C-c c" . org-roam-dailies-capture-today)
+		 ("C-c n i" . org-roam-insert)
+		 ("C-c n I" . org-roam-insert-immediate)
+		 ("C-c n t" . org-roam-dailies-find-today)
+		 ("C-c n m" . gg/org-roam-create-note-from-headline)))
+    :config
+    (require 'org-roam-protocol))
+#+end_src
+*** Org Ref
+#+begin_src emacs-lisp
+  (use-package org-ref
+    :straight t)
+#+end_src
+#+begin_src emacs-lisp
+  (use-package org-download
+    :after org
+    :bind
+    (:map org-mode-map
+	  (("s-Y" . org-download-screenshot)
+	   ("s-y" . org-download-yank))))
+#+end_src
 * Editor
 ** Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :straight t)
 #+END_SRC
-** Helpful
+** MacOS
 #+BEGIN_SRC emacs-lisp
-(use-package helpful
-  :straight t
-  :demand t
-  :bind (("C-h f" . helpful-callable)
-         ("C-h v" . helpful-variable)
-         ("C-h k" . helpful-key)))
-#+END_SRC
-** Dashboard
-#+BEGIN_SRC emacs-lisp
-(use-package dashboard
+(use-package exec-path-from-shell
   :ensure t
   :config
-  (dashboard-setup-startup-hook)
-  (setq
-   dashboard-startup-banner nil))
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 #+END_SRC
+
+** Smartparens
+#+BEGIN_SRC emacs-lisp
+  (use-package smartparens
+    :straight t
+    :custom
+    (smartparens-strict-mode t)
+    :init
+    (require 'smartparens-config)
+    (smartparens-global-mode 1)
+    (show-smartparens-global-mode 1)
+    :config
+    (sp-local-pair 'org-mode "_" "_" )
+    (sp-local-pair 'org-mode "*" "*" ))
+#+END_SRC
+* Bit Bar
+#+BEGIN_SRC emacs-lisp
+(defun gg/bit-bar-timer ()
+  (cond ((not (org-clocking-p)) "not clocking")
+	(t (substring-no-properties (org-clock-get-clock-string)))))
+#+END_SRC
+
+* ERC
+#+BEGIN_SRC emacs-lisp
+(use-package erc
+  :custom
+  (erc-hide-list '("JOIN" "PART" "QUIT"))
+  (erc-authjoin-channels-alist '(("freenode.net" "#emacs")))
+  (erc-prompt-for-password nil))
+#+END_SRC
+* Company
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :defer 2
+    :diminish
+    :custom
+    (company-begin-commands '(self-insert-command))
+    (company-idle-delay .1)
+    (company-minimum-prefix-length 2)
+    (company-show-numbers t)
+    (company-tooltip-align-annotations 't)
+    (global-company-mode t))
+
+  (use-package company-box
+    :after company
+    :diminish
+    :hook (company-mode . company-box-mode))
+#+END_SRC
+#+begin_src emacs-lisp
+  (use-package flyspell
+    :straight t
+    :diminish flyspell-mode
+    :commands flyspell-mode
+    :bind (("C-," . 'flyspell-goto-next-error))
+    :hook (('LaTeX-mode . flyspell-mode)
+	   ('org-mode . flyspell-mode))
+    :config
+    (setq ispell-program-name "aspell")
+    (add-to-list 'ispell-extra-args "--sug-mode=ultra")
+    (setq ispell-dictionary "en_US")
+    (ispell-set-spellchecker-params))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package which-key
+    :config
+    (which-key-mode))
+#+end_src
